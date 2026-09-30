@@ -47,11 +47,11 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   Row(
                     children: [
                       Expanded(child: _buildBiometricStat('HRV', '${r.hrvMs.round()} ms', VibrantColors.neonCyan)),
-                      Container(width: 1, height: 32, color: Colors.white12),
+                      Container(width: 1, height: 32, color: VibrantColors.border),
                       Expanded(child: _buildBiometricStat('RHR', '${r.restingHr} bpm', VibrantColors.neonMagenta)),
-                      Container(width: 1, height: 32, color: Colors.white12),
+                      Container(width: 1, height: 32, color: VibrantColors.border),
                       Expanded(child: _buildBiometricStat('STEPS', '${r.steps}', VibrantColors.neonLime)),
-                      Container(width: 1, height: 32, color: Colors.white12),
+                      Container(width: 1, height: 32, color: VibrantColors.border),
                       Expanded(child: _buildBiometricStat('BURN', '${r.activeKcal} kcal', VibrantColors.neonGold)),
                     ],
                   ),
@@ -62,11 +62,11 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                         SubscriptionPaywallView.show(context, widget.store);
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            backgroundColor: Color(0xFF1E1B4B),
+                            backgroundColor: Color(0xFF0F172A),
                             content: Text(
                               'Bi-directional wearable sync (Apple Health, Oura, Whoop) requires Pro.',
                               style: TextStyle(
-                                  color: VibrantColors.neonGold,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.w700),
                             ),
                           ),
@@ -85,7 +85,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                         : 'Unlock Wearable Telemetry (Pro)',
                     subtitle: 'Apple Health • Oura Ring • Whoop • Health Connect',
                     icon: const Icon(Icons.sync),
-                    gradientColors: const [VibrantColors.neonGold, Color(0xFFFF6B00)],
+                    gradientColors: const [VibrantColors.neonGold, Color(0xFFB45309)],
                     ledColor: VibrantColors.neonGold,
                     fullWidth: true,
                   ),
@@ -94,13 +94,13 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
-                        color: Colors.black45,
+                        color: const Color(0xFFF1F5F9),
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.white12),
+                        border: Border.all(color: VibrantColors.border),
                       ),
                       child: Text(
                         status!,
-                        style: const TextStyle(color: VibrantColors.neonLime, fontSize: 12),
+                        style: const TextStyle(color: VibrantColors.neonLime, fontSize: 12, fontWeight: FontWeight.w700),
                       ),
                     ),
                   ],
@@ -125,7 +125,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                           'Sleep Battery',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: VibrantColors.textPrimary, fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -142,7 +142,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor: VibrantColors.neonCyan,
-                      inactiveTrackColor: Colors.white12,
+                      inactiveTrackColor: VibrantColors.border,
                       thumbColor: VibrantColors.neonLime,
                     ),
                     child: Slider(
@@ -163,7 +163,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                           'CNS Readiness',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(color: VibrantColors.textPrimary, fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(width: 8),
@@ -180,7 +180,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor: VibrantColors.neonLime,
-                      inactiveTrackColor: Colors.white12,
+                      inactiveTrackColor: VibrantColors.border,
                       thumbColor: VibrantColors.neonCyan,
                     ),
                     child: Slider(
@@ -251,16 +251,13 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
             color: color,
             fontSize: 13.5,
             fontWeight: FontWeight.w900,
-            shadows: [
-              Shadow(color: color.withValues(alpha: 0.5), blurRadius: 8),
-            ],
           ),
         ),
         const SizedBox(height: 2),
         Text(
           label,
           style: const TextStyle(
-            color: Colors.white60,
+            color: VibrantColors.textSecondary,
             fontSize: 9,
             fontWeight: FontWeight.w700,
             letterSpacing: 0.8,
@@ -280,13 +277,14 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: color.withValues(alpha: 0.12),
+          color: color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withValues(alpha: 0.4)),
+          border: Border.all(color: color.withValues(alpha: 0.25)),
           boxShadow: [
             BoxShadow(
-              color: color.withValues(alpha: 0.15),
-              blurRadius: 8,
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
             ),
           ],
         ),

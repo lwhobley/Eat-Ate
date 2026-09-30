@@ -16,25 +16,17 @@ class CoachReviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        color: Colors.white,
         borderRadius: BorderRadius.circular(22),
-        gradient: LinearGradient(
-          colors: [
-            VibrantColors.neonMagenta.withValues(alpha: 0.18),
-            VibrantColors.neonPurple.withValues(alpha: 0.08),
-            VibrantColors.deepSpace.withValues(alpha: 0.92),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
         border: Border.all(
-          color: VibrantColors.neonMagenta.withValues(alpha: 0.55),
-          width: 1.5,
+          color: VibrantColors.border,
+          width: 1.2,
         ),
         boxShadow: [
           BoxShadow(
-            color: VibrantColors.neonMagenta.withValues(alpha: 0.20),
-            blurRadius: 20,
-            spreadRadius: -4,
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 12,
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -50,13 +42,14 @@ class CoachReviewCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: const LinearGradient(
-                    colors: [VibrantColors.neonMagenta, VibrantColors.neonPurple],
+                    colors: [VibrantColors.neonMagenta, Color(0xFF9333EA)],
                   ),
                   border: Border.all(color: Colors.white, width: 2),
                   boxShadow: [
                     BoxShadow(
-                      color: VibrantColors.neonMagenta.withValues(alpha: 0.6),
-                      blurRadius: 10,
+                      color: Colors.black.withValues(alpha: 0.1),
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
                     ),
                   ],
                 ),
@@ -82,7 +75,7 @@ class CoachReviewCard extends StatelessWidget {
                           child: Text(
                             coach.name,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: VibrantColors.textPrimary,
                               fontWeight: FontWeight.w800,
                               fontSize: 16,
                             ),
@@ -94,7 +87,7 @@ class CoachReviewCard extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 6, vertical: 2),
                           decoration: BoxDecoration(
-                            color: VibrantColors.neonMagenta.withValues(alpha: 0.25),
+                            color: VibrantColors.neonMagenta.withValues(alpha: 0.12),
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(
                               color: VibrantColors.neonMagenta,
@@ -116,8 +109,8 @@ class CoachReviewCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       coach.credentials,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.7),
+                      style: const TextStyle(
+                        color: VibrantColors.textSecondary,
                         fontSize: 11,
                         fontWeight: FontWeight.w500,
                       ),
@@ -136,10 +129,10 @@ class CoachReviewCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.black.withValues(alpha: 0.45),
+              color: const Color(0xFFF8FAFC),
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: Colors.white.withValues(alpha: 0.08),
+                color: VibrantColors.border,
               ),
             ),
             child: Column(
@@ -168,7 +161,7 @@ class CoachReviewCard extends StatelessWidget {
                 Text(
                   coach.latestFeedback,
                   style: const TextStyle(
-                    color: Colors.white,
+                    color: VibrantColors.textPrimary,
                     fontSize: 12.5,
                     height: 1.4,
                     fontStyle: FontStyle.italic,
@@ -193,8 +186,8 @@ class CoachReviewCard extends StatelessWidget {
                   const SizedBox(width: 6),
                   Text(
                     'Next Sync: ${coach.nextCheckInDate}',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
+                    style: const TextStyle(
+                      color: VibrantColors.textSecondary,
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
                     ),
@@ -206,10 +199,10 @@ class CoachReviewCard extends StatelessWidget {
                     () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          backgroundColor: VibrantColors.deepSpace,
+                          backgroundColor: const Color(0xFF0F172A),
                           content: Text(
                             'Telemetry packet sent to ${coach.name}. Weekly sync locked for Sunday.',
-                            style: const TextStyle(color: VibrantColors.neonMagenta),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
                       );
@@ -219,7 +212,7 @@ class CoachReviewCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: VibrantColors.neonMagenta.withValues(alpha: 0.2),
+                    color: VibrantColors.neonMagenta.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       color: VibrantColors.neonMagenta,

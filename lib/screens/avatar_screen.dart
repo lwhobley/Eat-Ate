@@ -88,13 +88,14 @@ class _AvatarScreenState extends State<AvatarScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(22),
               border: Border.all(
-                color: VibrantColors.neonLime.withValues(alpha: 0.7),
-                width: 1.8,
+                color: VibrantColors.neonLime,
+                width: 2.0,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: VibrantColors.neonLime.withValues(alpha: 0.25),
-                  blurRadius: 20,
+                  color: Colors.black.withValues(alpha: 0.08),
+                  blurRadius: 14,
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
@@ -189,9 +190,9 @@ class _AvatarScreenState extends State<AvatarScreen> {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: VibrantColors.neonLime.withValues(alpha: 0.15),
+                        color: VibrantColors.neonLime.withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: VibrantColors.neonLime.withValues(alpha: 0.4)),
+                        border: Border.all(color: VibrantColors.border),
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(13),
@@ -214,7 +215,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                           const Text(
                             'Evolution Reel',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: VibrantColors.textPrimary,
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
                             ),
@@ -222,7 +223,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                           const Text(
                             'Watch 90-day physique transformation',
                             style: TextStyle(
-                              color: Color(0xFFCBD5E1),
+                              color: VibrantColors.textSecondary,
                               fontSize: 11,
                             ),
                           ),
@@ -265,34 +266,14 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   const SizedBox(height: 14),
 
                   Center(
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // Holographic glow ring under avatar
-                        Container(
-                          width: 210,
-                          height: 250,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: VibrantColors.neonMagenta.withValues(alpha: 0.18),
-                                blurRadius: 40,
-                                spreadRadius: 10,
-                              ),
-                            ],
-                          ),
-                        ),
-                        visual,
-                      ],
-                    ),
+                    child: visual,
                   ),
                   const SizedBox(height: 16),
                   Text(
                     '${store.baseAvatarPhotos.length}/10 Photos Linked • ${(store.adherence * 100).round()}% Lock-In Rate',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      color: Color(0xFFCBD5E1),
+                      color: VibrantColors.textSecondary,
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                     ),
@@ -303,17 +284,17 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      Text('← Soft', style: TextStyle(color: Colors.white60, fontSize: 11)),
+                      Text('← Soft', style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w600)),
                       Text('Recomp Dial', style: TextStyle(color: VibrantColors.neonCyan, fontSize: 11, fontWeight: FontWeight.bold)),
-                      Text('Shredded →', style: TextStyle(color: Colors.white60, fontSize: 11)),
+                      Text('Shredded →', style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w600)),
                     ],
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor: VibrantColors.neonLime,
-                      inactiveTrackColor: Colors.white12,
+                      inactiveTrackColor: VibrantColors.border,
                       thumbColor: VibrantColors.neonCyan,
-                      overlayColor: VibrantColors.neonCyan.withValues(alpha: 0.2),
+                      overlayColor: VibrantColors.neonCyan.withValues(alpha: 0.15),
                     ),
                     child: Slider(
                       value: store.avatarLean,
@@ -343,18 +324,18 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   // Auto-drift switch
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.3),
+                      color: const Color(0xFFF8FAFC),
                       borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: Colors.white10),
+                      border: Border.all(color: VibrantColors.border),
                     ),
                     child: SwitchListTile(
                       title: const Text(
                         'Auto-drift with adherence',
-                        style: TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                        style: TextStyle(color: VibrantColors.textPrimary, fontSize: 13, fontWeight: FontWeight.w700),
                       ),
                       subtitle: const Text(
                         'Physique evolves automatically based on logged meals and workouts',
-                        style: TextStyle(color: Colors.white54, fontSize: 11),
+                        style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11),
                       ),
                       activeThumbColor: VibrantColors.neonLime,
                       value: store.avatarAutoDrift,
@@ -389,7 +370,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                         ? 'Generating Neural Glow-Up…'
                         : 'Render Neural Future You',
                     icon: const Icon(Icons.auto_awesome),
-                    gradientColors: const [VibrantColors.neonMagenta, VibrantColors.neonPurple],
+                    gradientColors: const [VibrantColors.neonMagenta, Color(0xFF9333EA)],
                     ledColor: VibrantColors.neonMagenta,
                     fullWidth: true,
                   ),
@@ -401,7 +382,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                           onPressed: _pickBase,
                           label: store.baseAvatarPhotos.isEmpty ? 'Upload Selfies' : 'Add Selfies',
                           icon: const Icon(Icons.upload),
-                          gradientColors: const [Color(0xFF334155), Color(0xFF1E293B)],
+                          gradientColors: const [Color(0xFF0284C7), Color(0xFF0369A1)],
                           ledColor: VibrantColors.neonCyan,
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                           chamfer: 10,
@@ -413,8 +394,8 @@ class _AvatarScreenState extends State<AvatarScreen> {
                           onPressed: _share,
                           label: 'Share Glow-Up',
                           icon: const Icon(Icons.share),
-                          gradientColors: const [VibrantColors.neonCyan, VibrantColors.neonElectricBlue],
-                          ledColor: VibrantColors.neonCyan,
+                          gradientColors: const [Color(0xFF059669), Color(0xFF047857)],
+                          ledColor: VibrantColors.neonLime,
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                           chamfer: 10,
                         ),
@@ -426,7 +407,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                     onPressed: store.skipWeek,
                     label: 'Simulate 1-Week Gym Hiatus',
                     icon: const Icon(Icons.history_toggle_off),
-                    gradientColors: const [Color(0xFF2D1525), Color(0xFF1B0F1A)],
+                    gradientColors: const [Color(0xFFE11D48), Color(0xFFBE123C)],
                     ledColor: VibrantColors.neonMagenta,
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                     chamfer: 10,
@@ -448,28 +429,20 @@ class _AvatarScreenState extends State<AvatarScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
           color: isSelected
-              ? VibrantColors.neonCyan.withValues(alpha: 0.22)
-              : const Color(0xFF1E293B),
+              ? VibrantColors.neonCyan.withValues(alpha: 0.12)
+              : const Color(0xFFF1F5F9),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected
                 ? VibrantColors.neonCyan
-                : Colors.white24,
+                : VibrantColors.border,
             width: 1.2,
           ),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: VibrantColors.neonCyan.withValues(alpha: 0.3),
-                    blurRadius: 8,
-                  ),
-                ]
-              : null,
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? VibrantColors.neonCyan : Colors.white70,
+            color: isSelected ? VibrantColors.neonCyan : VibrantColors.textSecondary,
             fontSize: 11,
             fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
             letterSpacing: 0.5,
@@ -488,13 +461,13 @@ class _AvatarScreenState extends State<AvatarScreen> {
           padding: const EdgeInsets.symmetric(vertical: 7),
           decoration: BoxDecoration(
             color: isSelected
-                ? VibrantColors.neonLime.withValues(alpha: 0.22)
-                : const Color(0xFF1E293B),
+                ? VibrantColors.neonLime.withValues(alpha: 0.12)
+                : const Color(0xFFF1F5F9),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: isSelected
                   ? VibrantColors.neonLime
-                  : Colors.white24,
+                  : VibrantColors.border,
               width: 1,
             ),
           ),
@@ -504,9 +477,9 @@ class _AvatarScreenState extends State<AvatarScreen> {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                color: isSelected ? VibrantColors.neonLime : Colors.white70,
+                color: isSelected ? VibrantColors.neonLime : VibrantColors.textSecondary,
                 fontSize: 10,
-                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w500,
+                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
               ),
             ),
           ),

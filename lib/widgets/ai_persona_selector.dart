@@ -28,17 +28,11 @@ class AiPersonaSelector extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         decoration: BoxDecoration(
-          color: store.aiPersona.color.withValues(alpha: 0.14),
+          color: store.aiPersona.color.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: store.aiPersona.color.withValues(alpha: 0.45),
+            color: store.aiPersona.color.withValues(alpha: 0.25),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: store.aiPersona.color.withValues(alpha: 0.2),
-              blurRadius: 10,
-            ),
-          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -53,7 +47,7 @@ class AiPersonaSelector extends StatelessWidget {
                 style: TextStyle(
                   color: store.aiPersona.color,
                   fontSize: 10,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w800,
                   letterSpacing: 0.7,
                 ),
               ),
@@ -81,7 +75,7 @@ class AiPersonaSelector extends StatelessWidget {
         children: [
           const Text(
             'Choose how your AI communicates consequences, rewards, and feedback:',
-            style: TextStyle(color: Color(0xFF94A3B8), fontSize: 12),
+            style: TextStyle(color: VibrantColors.textSecondary, fontSize: 12),
           ),
           const SizedBox(height: 12),
           Column(
@@ -95,30 +89,22 @@ class AiPersonaSelector extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? persona.color.withValues(alpha: 0.18)
-                        : Colors.black.withValues(alpha: 0.25),
+                        ? persona.color.withValues(alpha: 0.08)
+                        : const Color(0xFFF8FAFC),
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: isSelected
-                          ? persona.color
-                          : Colors.white.withValues(alpha: 0.08),
+                          ? persona.color.withValues(alpha: 0.4)
+                          : const Color(0xFFE2E8F0),
                       width: isSelected ? 1.5 : 1.0,
                     ),
-                    boxShadow: isSelected
-                        ? [
-                            BoxShadow(
-                              color: persona.color.withValues(alpha: 0.25),
-                              blurRadius: 12,
-                            ),
-                          ]
-                        : null,
                   ),
                   child: Row(
                     children: [
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: persona.color.withValues(alpha: 0.2),
+                          color: persona.color.withValues(alpha: 0.12),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -137,7 +123,9 @@ class AiPersonaSelector extends StatelessWidget {
                                 Text(
                                   persona.displayName,
                                   style: TextStyle(
-                                    color: isSelected ? Colors.white : Colors.white70,
+                                    color: isSelected
+                                        ? VibrantColors.textPrimary
+                                        : VibrantColors.textSecondary,
                                     fontSize: 13,
                                     fontWeight: FontWeight.w800,
                                   ),

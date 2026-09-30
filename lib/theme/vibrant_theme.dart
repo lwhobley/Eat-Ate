@@ -1,38 +1,39 @@
 import 'package:flutter/material.dart';
 
 class VibrantColors {
-  // Ultra-vibrant neon palette
-  static const Color neonLime = Color(0xFF00FF87);
-  static const Color neonCyan = Color(0xFF60EFFF);
-  static const Color neonMagenta = Color(0xFFFF007A);
-  static const Color neonAmber = Color(0xFFFFB800);
-  static const Color neonGold = Color(0xFFFFE600);
-  static const Color neonPurple = Color(0xFF9D00FF);
-  static const Color neonElectricBlue = Color(0xFF0072FF);
+  // Sophisticated athletic palette (non-neon, high contrast, clean)
+  static const Color neonLime = Color(0xFF059669);        // Rich energetic emerald 600
+  static const Color neonCyan = Color(0xFF0284C7);        // Crisp ocean/sky blue 600
+  static const Color neonMagenta = Color(0xFFE11D48);     // Crisp vibrant rose 600
+  static const Color neonAmber = Color(0xFFD97706);       // Warm amber 600
+  static const Color neonGold = Color(0xFFD97706);        // Warm gold/amber 600
+  static const Color neonPurple = Color(0xFF7C3AED);      // Clean violet 600
+  static const Color neonElectricBlue = Color(0xFF2563EB);// Royal blue 600
 
-  // Modern luminous slate background palette
-  static const Color obsidianVoid = Color(0xFF0F172A); // Elevated slate 900
-  static const Color deepSpace = Color(0xFF1E293B);    // Elevated slate 800
-  static const Color cardSurface = Color(0xFF1E293B);
-  static const Color elevatedSurface = Color(0xFF334155);
-  static const Color glassSurface = Color(0x33FFFFFF);
-  static const Color glassSurfaceDark = Color(0x551E293B);
+  // Modern clean light background palette
+  static const Color obsidianVoid = Color(0xFFF8FAFC);    // Clean airy light canvas (slate 50)
+  static const Color deepSpace = Color(0xFFFFFFFF);       // Crisp white surface
+  static const Color cardSurface = Color(0xFFFFFFFF);     // Crisp white card
+  static const Color elevatedSurface = Color(0xFFF1F5F9); // Light slate 100
+  static const Color glassSurface = Color(0xF2FFFFFF);    // Frosted white glass
+  static const Color glassSurfaceDark = Color(0xE6FFFFFF);
 
-  // Highlight & Lowlight accents for 3D depth
-  static const Color specularHighlight = Color(0xB3FFFFFF);
-  static const Color lowlightShadow = Color(0x66000000);
+  // Modern crisp typography colors
+  static const Color textPrimary = Color(0xFF0F172A);     // Deep slate 900
+  static const Color textSecondary = Color(0xFF475569);   // Slate 600
+  static const Color textMuted = Color(0xFF94A3B8);       // Slate 400
+  static const Color border = Color(0xFFE2E8F0);          // Slate 200 border
 
-  // LED Glow definitions
+  // Highlight & Lowlight accents for clean modern cards
+  static const Color specularHighlight = Color(0x1A000000);
+  static const Color lowlightShadow = Color(0x0A000000);
+
+  // Clean modern soft drop shadow (no fluorescent neon glow)
   static List<BoxShadow> neonGlow(Color color, {double intensity = 1.0}) => [
         BoxShadow(
-          color: color.withValues(alpha: 0.65 * intensity),
-          blurRadius: 18 * intensity,
-          spreadRadius: 2 * intensity,
-        ),
-        BoxShadow(
-          color: color.withValues(alpha: 0.3 * intensity),
-          blurRadius: 36 * intensity,
-          spreadRadius: 6 * intensity,
+          color: color.withValues(alpha: 0.15 * intensity),
+          blurRadius: 10 * intensity,
+          offset: const Offset(0, 3),
         ),
       ];
 }
@@ -40,46 +41,48 @@ class VibrantColors {
 class VibrantTheme {
   static ThemeData get darkTheme {
     return ThemeData(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       scaffoldBackgroundColor: VibrantColors.obsidianVoid,
       primaryColor: VibrantColors.neonLime,
-      colorScheme: const ColorScheme.dark(
+      cardColor: Colors.white,
+      colorScheme: const ColorScheme.light(
         primary: VibrantColors.neonLime,
         secondary: VibrantColors.neonCyan,
         tertiary: VibrantColors.neonMagenta,
         surface: VibrantColors.deepSpace,
+        onSurface: VibrantColors.textPrimary,
       ),
       fontFamily: 'Roboto',
       textTheme: const TextTheme(
         headlineLarge: TextStyle(
-          color: Colors.white,
-          fontSize: 32,
+          color: VibrantColors.textPrimary,
+          fontSize: 30,
           fontWeight: FontWeight.w900,
-          letterSpacing: 0.5,
-        ),
-        headlineMedium: TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.w800,
           letterSpacing: 0.3,
         ),
+        headlineMedium: TextStyle(
+          color: VibrantColors.textPrimary,
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 0.2,
+        ),
         titleLarge: TextStyle(
-          color: Colors.white,
+          color: VibrantColors.textPrimary,
           fontSize: 18,
           fontWeight: FontWeight.w700,
         ),
         titleMedium: TextStyle(
-          color: Colors.white,
+          color: VibrantColors.textPrimary,
           fontSize: 15,
           fontWeight: FontWeight.w600,
         ),
         bodyLarge: TextStyle(
-          color: Color(0xFFF8FAFC),
+          color: VibrantColors.textPrimary,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
         bodyMedium: TextStyle(
-          color: Color(0xFFCBD5E1),
+          color: VibrantColors.textSecondary,
           fontSize: 13,
         ),
       ),

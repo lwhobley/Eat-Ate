@@ -141,17 +141,17 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
               const SizedBox(height: 6),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.4),
+                  color: const Color(0xFFF8FAFC),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: VibrantColors.neonCyan.withValues(alpha: 0.3)),
+                  border: Border.all(color: VibrantColors.border),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                 child: TextField(
                   controller: _plannedCtrl,
-                  style: const TextStyle(color: Colors.white, fontSize: 13),
+                  style: const TextStyle(color: VibrantColors.textPrimary, fontSize: 13),
                   decoration: const InputDecoration(
                     hintText: 'e.g. Grilled chicken breast, quinoa & steamed broccoli',
-                    hintStyle: TextStyle(color: Colors.white38),
+                    hintStyle: TextStyle(color: VibrantColors.textMuted),
                     border: InputBorder.none,
                   ),
                 ),
@@ -171,9 +171,9 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
               const SizedBox(height: 6),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.4),
+                  color: const Color(0xFFF8FAFC),
                   borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: VibrantColors.neonMagenta.withValues(alpha: 0.35)),
+                  border: Border.all(color: VibrantColors.border),
                 ),
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                 child: Row(
@@ -181,10 +181,10 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                     Expanded(
                       child: TextField(
                         controller: _actualCtrl,
-                        style: const TextStyle(color: Colors.white, fontSize: 13),
+                        style: const TextStyle(color: VibrantColors.textPrimary, fontSize: 13),
                         decoration: const InputDecoration(
                           hintText: 'e.g. 3 slices of pepperoni pizza, or burger and fries',
-                          hintStyle: TextStyle(color: Colors.white38),
+                          hintStyle: TextStyle(color: VibrantColors.textMuted),
                           border: InputBorder.none,
                         ),
                       ),
@@ -233,7 +233,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                   const Text(
                     'AI PERSONA VIBE CHECK:',
                     style: TextStyle(
-                      color: Colors.white70,
+                      color: VibrantColors.textSecondary,
                       fontSize: 10,
                       fontWeight: FontWeight.w800,
                       letterSpacing: 0.8,
@@ -297,9 +297,9 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: VibrantColors.neonCyan.withValues(alpha: 0.08),
+                        color: const Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: VibrantColors.neonCyan.withValues(alpha: 0.25)),
+                        border: Border.all(color: VibrantColors.border),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,7 +319,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: VibrantColors.textPrimary,
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                             ),
@@ -328,14 +328,14 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                           Text(
                             '${impact.plannedNutrients.kcal.round()} kcal',
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: VibrantColors.textPrimary,
                               fontSize: 16,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
                           Text(
                             '${impact.plannedNutrients.proteinG.round()}g Prot • ${impact.plannedNutrients.carbsG.round()}g Carb',
-                            style: const TextStyle(color: Colors.white60, fontSize: 10),
+                            style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 10),
                           ),
                         ],
                       ),
@@ -348,8 +348,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                     child: Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: (isSurplus ? VibrantColors.neonMagenta : VibrantColors.neonLime)
-                            .withValues(alpha: 0.08),
+                        color: const Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(
                           color: (isSurplus ? VibrantColors.neonMagenta : VibrantColors.neonLime)
@@ -374,7 +373,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: VibrantColors.textPrimary,
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                             ),
@@ -390,7 +389,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                           ),
                           Text(
                             '${impact.actualNutrients.proteinG.round()}g Prot • ${impact.actualNutrients.carbsG.round()}g Carb',
-                            style: const TextStyle(color: Colors.white60, fontSize: 10),
+                            style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 10),
                           ),
                         ],
                       ),
@@ -429,7 +428,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
           child: Text(
             impact.nutritionalBackground,
             style: const TextStyle(
-              color: Color(0xFFCBD5E1),
+              color: VibrantColors.textPrimary,
               fontSize: 13,
               height: 1.45,
             ),
@@ -460,7 +459,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                           child: Text(
                             reward,
                             style: const TextStyle(
-                              color: Colors.white,
+                              color: VibrantColors.textPrimary,
                               fontSize: 12,
                               height: 1.35,
                             ),
@@ -498,7 +497,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                           child: Text(
                             consequence,
                             style: const TextStyle(
-                              color: Color(0xFFFFD1DC),
+                              color: VibrantColors.textPrimary,
                               fontSize: 12,
                               height: 1.35,
                             ),
@@ -571,9 +570,9 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.4)),
+        border: Border.all(color: color.withValues(alpha: 0.25)),
       ),
       child: Column(
         children: [
@@ -583,14 +582,13 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
               color: color,
               fontSize: 16,
               fontWeight: FontWeight.w900,
-              shadows: [Shadow(color: color.withValues(alpha: 0.6), blurRadius: 8)],
             ),
           ),
           const SizedBox(height: 2),
           Text(
             label,
             style: const TextStyle(
-              color: Colors.white60,
+              color: VibrantColors.textSecondary,
               fontSize: 9,
               fontWeight: FontWeight.w700,
               letterSpacing: 0.8,
@@ -629,7 +627,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
               Text(
                 body,
                 style: const TextStyle(
-                  color: Color(0xFFE2E8F0),
+                  color: VibrantColors.textSecondary,
                   fontSize: 12,
                   height: 1.35,
                 ),

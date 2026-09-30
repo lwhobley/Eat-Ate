@@ -115,17 +115,17 @@ class _LogScreenState extends State<LogScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (_) => AlertDialog(
-        backgroundColor: const Color(0xFF0F172A),
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: const BorderSide(color: VibrantColors.neonCyan),
+          side: const BorderSide(color: VibrantColors.border),
         ),
-        title: Text(item.name, style: const TextStyle(color: Colors.white)),
+        title: Text(item.name, style: const TextStyle(color: VibrantColors.textPrimary, fontWeight: FontWeight.bold)),
         content: Column(mainAxisSize: MainAxisSize.min, children: [
           TextField(
             controller: kcalCtrl,
             keyboardType: TextInputType.number,
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: VibrantColors.textPrimary),
             decoration: const InputDecoration(
               labelText: 'Calories (kcal)',
               labelStyle: TextStyle(color: VibrantColors.neonCyan),
@@ -135,7 +135,7 @@ class _LogScreenState extends State<LogScreen> {
           TextField(
             controller: pCtrl,
             keyboardType: TextInputType.number,
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: VibrantColors.textPrimary),
             decoration: const InputDecoration(
               labelText: 'Protein (g)',
               labelStyle: TextStyle(color: VibrantColors.neonMagenta),
@@ -145,12 +145,12 @@ class _LogScreenState extends State<LogScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel', style: TextStyle(color: Colors.white54)),
+            child: const Text('Cancel', style: TextStyle(color: VibrantColors.textSecondary)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: VibrantColors.neonCyan,
-              foregroundColor: Colors.black,
+              foregroundColor: Colors.white,
             ),
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Save', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -205,9 +205,9 @@ class _LogScreenState extends State<LogScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _buildDailyStat('${s.eatenKcal.round()}', 'KCAL FUELED', VibrantColors.neonCyan),
-                    Container(width: 1, height: 34, color: Colors.white12),
+                    Container(width: 1, height: 34, color: VibrantColors.border),
                     _buildDailyStat('${s.eatenProtein.round()}g', 'PROTEIN GAINS', VibrantColors.neonMagenta),
-                    Container(width: 1, height: 34, color: Colors.white12),
+                    Container(width: 1, height: 34, color: VibrantColors.border),
                     _buildDailyStat('${s.workouts.length}', 'SESSIONS CRUSHED', VibrantColors.neonLime),
                   ],
                 ),
@@ -220,15 +220,14 @@ class _LogScreenState extends State<LogScreen> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF1E1B4B), Color(0xFF0F172A)],
-                    ),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: VibrantColors.neonMagenta.withValues(alpha: 0.4)),
+                    border: Border.all(color: VibrantColors.border),
                     boxShadow: [
                       BoxShadow(
-                        color: VibrantColors.neonMagenta.withValues(alpha: 0.18),
-                        blurRadius: 14,
+                        color: Colors.black.withValues(alpha: 0.04),
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -237,7 +236,7 @@ class _LogScreenState extends State<LogScreen> {
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: VibrantColors.neonMagenta.withValues(alpha: 0.2),
+                          color: VibrantColors.neonMagenta.withValues(alpha: 0.12),
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(Icons.psychology, color: VibrantColors.neonMagenta, size: 22),
@@ -250,14 +249,14 @@ class _LogScreenState extends State<LogScreen> {
                             Text(
                               'Ate off-plan? Run the Showdown',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: VibrantColors.textPrimary,
                                 fontSize: 13,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               'AI breaks down consequences, rewards & auto-rebalance',
-                              style: TextStyle(color: Colors.white60, fontSize: 11),
+                              style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11),
                             ),
                           ],
                         ),
@@ -278,9 +277,9 @@ class _LogScreenState extends State<LogScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.4),
+                        color: const Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: VibrantColors.neonLime.withValues(alpha: 0.2)),
+                        border: Border.all(color: VibrantColors.border),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       child: Row(
@@ -288,10 +287,10 @@ class _LogScreenState extends State<LogScreen> {
                           Expanded(
                             child: TextField(
                               controller: foodCtrl,
-                              style: const TextStyle(color: Colors.white, fontSize: 14),
+                              style: const TextStyle(color: VibrantColors.textPrimary, fontSize: 14),
                               decoration: const InputDecoration(
                                 hintText: 'What did you fuel with?',
-                                hintStyle: TextStyle(color: Colors.white38),
+                                hintStyle: TextStyle(color: VibrantColors.textMuted),
                                 border: InputBorder.none,
                               ),
                             ),
@@ -332,17 +331,17 @@ class _LogScreenState extends State<LogScreen> {
                           return Container(
                             margin: const EdgeInsets.only(top: 8),
                             decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.04),
+                              color: const Color(0xFFF8FAFC),
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+                              border: Border.all(color: VibrantColors.border),
                             ),
                             child: ListTile(
                               dense: true,
                               leading: const Icon(Icons.restaurant, color: VibrantColors.neonLime, size: 20),
-                              title: Text(i.name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                              title: Text(i.name, style: const TextStyle(color: VibrantColors.textPrimary, fontWeight: FontWeight.bold)),
                               subtitle: Text(
                                 '${i.kcal.round()} kcal • ${i.proteinG.round()}g protein${i.grams > 0 ? " • ${i.grams.round()}g" : ""} • ${(i.confidence * 100).round()}% AI confidence',
-                                style: const TextStyle(color: Colors.white60, fontSize: 11),
+                                style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 11),
                               ),
                               trailing: const Icon(Icons.edit, color: VibrantColors.neonCyan, size: 18),
                               onTap: () => _editFood(li, ii, i),
@@ -365,9 +364,9 @@ class _LogScreenState extends State<LogScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.4),
+                        color: const Color(0xFFF8FAFC),
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: VibrantColors.neonMagenta.withValues(alpha: 0.2)),
+                        border: Border.all(color: VibrantColors.border),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                       child: Row(
@@ -375,10 +374,10 @@ class _LogScreenState extends State<LogScreen> {
                           Expanded(
                             child: TextField(
                               controller: workoutCtrl,
-                              style: const TextStyle(color: Colors.white, fontSize: 14),
+                              style: const TextStyle(color: VibrantColors.textPrimary, fontSize: 14),
                               decoration: const InputDecoration(
                                 hintText: 'What did you train?',
-                                hintStyle: TextStyle(color: Colors.white38),
+                                hintStyle: TextStyle(color: VibrantColors.textMuted),
                                 border: InputBorder.none,
                               ),
                             ),
@@ -411,9 +410,9 @@ class _LogScreenState extends State<LogScreen> {
                         margin: const EdgeInsets.only(top: 8),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.04),
+                          color: const Color(0xFFF8FAFC),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.white.withValues(alpha: 0.08)),
+                          border: Border.all(color: VibrantColors.border),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -425,7 +424,7 @@ class _LogScreenState extends State<LogScreen> {
                                 Expanded(
                                   child: Text(
                                     w.summary,
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                    style: const TextStyle(color: VibrantColors.textPrimary, fontWeight: FontWeight.bold),
                                   ),
                                 ),
                                 LedPillBadge(
@@ -437,7 +436,7 @@ class _LogScreenState extends State<LogScreen> {
                             SliderTheme(
                               data: SliderTheme.of(context).copyWith(
                                 activeTrackColor: VibrantColors.neonMagenta,
-                                inactiveTrackColor: Colors.white12,
+                                inactiveTrackColor: VibrantColors.border,
                                 thumbColor: VibrantColors.neonCyan,
                               ),
                               child: Slider(
@@ -467,9 +466,16 @@ class _LogScreenState extends State<LogScreen> {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFF0F172A).withValues(alpha: 0.8),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white12),
+        border: Border.all(color: VibrantColors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -508,19 +514,11 @@ class _LogScreenState extends State<LogScreen> {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? activeColor.withValues(alpha: 0.18) : Colors.transparent,
+          color: isSelected ? activeColor.withValues(alpha: 0.12) : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected ? activeColor : Colors.transparent,
           ),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: activeColor.withValues(alpha: 0.25),
-                    blurRadius: 10,
-                  ),
-                ]
-              : null,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -528,7 +526,7 @@ class _LogScreenState extends State<LogScreen> {
             Icon(
               icon,
               size: 16,
-              color: isSelected ? activeColor : Colors.white60,
+              color: isSelected ? activeColor : VibrantColors.textSecondary,
             ),
             const SizedBox(width: 5),
             Flexible(
@@ -537,7 +535,7 @@ class _LogScreenState extends State<LogScreen> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.white60,
+                  color: isSelected ? activeColor : VibrantColors.textSecondary,
                   fontSize: 10.5,
                   fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
                   letterSpacing: 0.5,
@@ -559,16 +557,13 @@ class _LogScreenState extends State<LogScreen> {
             color: color,
             fontSize: 18,
             fontWeight: FontWeight.w900,
-            shadows: [
-              Shadow(color: color.withValues(alpha: 0.5), blurRadius: 10),
-            ],
           ),
         ),
         const SizedBox(height: 2),
         Text(
           label,
           style: const TextStyle(
-            color: Colors.white60,
+            color: VibrantColors.textSecondary,
             fontSize: 9,
             fontWeight: FontWeight.w700,
             letterSpacing: 0.8,
@@ -588,16 +583,23 @@ class _LogScreenState extends State<LogScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
       decoration: BoxDecoration(
         color: isFree
-            ? VibrantColors.deepSpace
+            ? Colors.white
             : tier.color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isFree
               ? (count >= limit
                   ? VibrantColors.neonAmber
-                  : Colors.white.withValues(alpha: 0.15))
+                  : VibrantColors.border)
               : tier.color.withValues(alpha: 0.4),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -611,7 +613,7 @@ class _LogScreenState extends State<LogScreen> {
                       : Icons.all_inclusive,
                   size: 15,
                   color: isFree
-                      ? (count >= limit ? VibrantColors.neonAmber : Colors.white70)
+                      ? (count >= limit ? VibrantColors.neonAmber : VibrantColors.textSecondary)
                       : tier.color,
                 ),
                 const SizedBox(width: 8),
@@ -624,7 +626,7 @@ class _LogScreenState extends State<LogScreen> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: isFree
-                          ? (count >= limit ? VibrantColors.neonAmber : Colors.white)
+                          ? (count >= limit ? VibrantColors.neonAmber : VibrantColors.textPrimary)
                           : tier.color,
                       fontSize: 10.5,
                       fontWeight: FontWeight.w800,
@@ -649,7 +651,7 @@ class _LogScreenState extends State<LogScreen> {
                 child: const Text(
                   'UPGRADE',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 9.5,
                     fontWeight: FontWeight.w900,
                   ),

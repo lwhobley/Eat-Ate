@@ -43,17 +43,17 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
         return Container(
           height: MediaQuery.of(context).size.height * 0.90,
           decoration: BoxDecoration(
-            color: VibrantColors.obsidianVoid,
+            color: Colors.white,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
             border: Border.all(
-              color: VibrantColors.neonCyan.withValues(alpha: 0.35),
+              color: VibrantColors.border,
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
-                color: VibrantColors.neonCyan.withValues(alpha: 0.18),
-                blurRadius: 30,
-                spreadRadius: 2,
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 24,
+                spreadRadius: 0,
               ),
             ],
           ),
@@ -65,7 +65,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                 height: 4,
                 margin: const EdgeInsets.only(top: 12, bottom: 8),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: VibrantColors.border,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -90,7 +90,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                             Text(
                               'GROWTH & MONETIZATION ENGINE',
                               style: TextStyle(
-                                color: Colors.white.withValues(alpha: 0.7),
+                                color: VibrantColors.textSecondary,
                                 fontSize: 10,
                                 fontWeight: FontWeight.w900,
                                 letterSpacing: 1.2,
@@ -102,7 +102,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                         const Text(
                           'Choose Your Tier',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: VibrantColors.textPrimary,
                             fontSize: 22,
                             fontWeight: FontWeight.w900,
                             letterSpacing: -0.5,
@@ -111,14 +111,14 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(Icons.close, color: Colors.white60),
+                      icon: const Icon(Icons.close, color: VibrantColors.textSecondary),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ],
                 ),
               ),
 
-              const Divider(color: Colors.white10, height: 1),
+              const Divider(color: VibrantColors.border, height: 1),
 
               // Core Value Banner
               Container(
@@ -126,10 +126,10 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(
-                  color: VibrantColors.deepSpace.withValues(alpha: 0.8),
+                  color: const Color(0xFFF8FAFC),
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(
-                    color: VibrantColors.neonGold.withValues(alpha: 0.35),
+                    color: VibrantColors.border,
                     width: 1,
                   ),
                 ),
@@ -145,7 +145,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                       child: RichText(
                         text: const TextSpan(
                           style: TextStyle(
-                            color: Colors.white70,
+                            color: VibrantColors.textSecondary,
                             fontSize: 11,
                             height: 1.35,
                           ),
@@ -278,12 +278,19 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
               Container(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 18),
                 decoration: BoxDecoration(
-                  color: VibrantColors.deepSpace,
+                  color: Colors.white,
                   border: Border(
                     top: BorderSide(
-                      color: Colors.white.withValues(alpha: 0.08),
+                      color: VibrantColors.border,
                     ),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, -2),
+                    ),
+                  ],
                 ),
                 child: SafeArea(
                   top: false,
@@ -306,7 +313,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                             Text(
                               _selectedTier.priceDisplay,
                               style: const TextStyle(
-                                color: Colors.white,
+                                color: VibrantColors.textPrimary,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w800,
                               ),
@@ -329,7 +336,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                           widget.store.setSubscriptionTier(_selectedTier);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              backgroundColor: const Color(0xFF141724),
+                              backgroundColor: const Color(0xFF0F172A),
                               content: Row(
                                 children: [
                                   Icon(Icons.check_circle,
@@ -385,21 +392,19 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
         decoration: BoxDecoration(
           color: isSelected
               ? tier.color.withValues(alpha: 0.08)
-              : VibrantColors.deepSpace.withValues(alpha: 0.7),
+              : const Color(0xFFF8FAFC),
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
-            color: isSelected ? tier.color : Colors.white.withValues(alpha: 0.12),
+            color: isSelected ? tier.color : VibrantColors.border,
             width: isSelected ? 2 : 1,
           ),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: tier.color.withValues(alpha: 0.25),
-                    blurRadius: 18,
-                    spreadRadius: -2,
-                  ),
-                ]
-              : null,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isSelected ? 0.06 : 0.02),
+              blurRadius: isSelected ? 12 : 6,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -412,7 +417,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                   decoration: BoxDecoration(
-                    color: badgeColor.withValues(alpha: 0.2),
+                    color: badgeColor.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(color: badgeColor, width: 1),
                   ),
@@ -431,13 +436,14 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
                     decoration: BoxDecoration(
-                      color: Colors.white12,
+                      color: const Color(0xFFF1F5F9),
                       borderRadius: BorderRadius.circular(4),
+                      border: Border.all(color: VibrantColors.border),
                     ),
                     child: const Text(
                       'ACTIVE NOW',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: VibrantColors.textSecondary,
                         fontSize: 9,
                         fontWeight: FontWeight.w800,
                       ),
@@ -455,7 +461,7 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                   child: Text(
                     title,
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: VibrantColors.textPrimary,
                       fontSize: 16,
                       fontWeight: FontWeight.w800,
                     ),
@@ -473,16 +479,16 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
             ),
             Text(
               priceSub,
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.65),
+              style: const TextStyle(
+                color: VibrantColors.textSecondary,
                 fontSize: 11,
               ),
             ),
             const SizedBox(height: 8),
             Text(
               tagline,
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.85),
+              style: const TextStyle(
+                color: VibrantColors.textSecondary,
                 fontSize: 11.5,
                 fontStyle: FontStyle.italic,
                 height: 1.35,
@@ -503,8 +509,8 @@ class _SubscriptionPaywallViewState extends State<SubscriptionPaywallView> {
                       Expanded(
                         child: Text(
                           feat,
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.75),
+                          style: const TextStyle(
+                            color: VibrantColors.textPrimary,
                             fontSize: 11,
                             height: 1.25,
                           ),

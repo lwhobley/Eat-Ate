@@ -119,15 +119,17 @@ class _EatAteAppState extends State<EatAteApp> {
                 width: 38,
                 height: 38,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: VibrantColors.neonCyan.withValues(alpha: 0.5),
+                    color: const Color(0xFFE2E8F0),
                     width: 1.2,
                   ),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
-                      color: VibrantColors.neonCyan.withValues(alpha: 0.25),
-                      blurRadius: 8,
+                      color: Color(0x0A0F172A),
+                      blurRadius: 6,
+                      offset: Offset(0, 2),
                     ),
                   ],
                 ),
@@ -138,7 +140,7 @@ class _EatAteAppState extends State<EatAteApp> {
                     fit: BoxFit.cover,
                     errorBuilder: (_, _, _) => const Icon(
                       Icons.electric_bolt_rounded,
-                      color: VibrantColors.neonCyan,
+                      color: VibrantColors.neonLime,
                       size: 18,
                     ),
                   ),
@@ -152,29 +154,26 @@ class _EatAteAppState extends State<EatAteApp> {
                   const Text(
                     'EAT OR ATE',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: VibrantColors.textPrimary,
                       fontSize: 15,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.1,
-                      shadows: [
-                        Shadow(color: VibrantColors.neonCyan, blurRadius: 8),
-                      ],
                     ),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const LedStatusDiode(
-                        color: VibrantColors.neonCyan,
+                        color: VibrantColors.neonLime,
                         size: 5,
                       ),
                       const SizedBox(width: 5),
                       const Text(
                         'AI HEALTH OS',
                         style: TextStyle(
-                          color: VibrantColors.neonCyan,
+                          color: VibrantColors.neonLime,
                           fontSize: 8.5,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w800,
                           letterSpacing: 0.7,
                         ),
                       ),
@@ -213,18 +212,12 @@ class _EatAteAppState extends State<EatAteApp> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 5),
                       decoration: BoxDecoration(
-                        color: badgeColor.withValues(alpha: 0.14),
+                        color: badgeColor.withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: badgeColor.withValues(alpha: 0.6),
-                          width: 1.2,
+                          color: badgeColor.withValues(alpha: 0.3),
+                          width: 1.0,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: badgeColor.withValues(alpha: 0.2),
-                            blurRadius: 8,
-                          ),
-                        ],
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -264,21 +257,17 @@ class _EatAteAppState extends State<EatAteApp> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF1E293B),
-                        Color(0xFF0F172A),
-                      ],
-                    ),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(
-                      color: VibrantColors.neonLime.withValues(alpha: 0.55),
+                      color: const Color(0xFFE2E8F0),
                       width: 1.2,
                     ),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
-                        color: VibrantColors.neonLime.withValues(alpha: 0.25),
-                        blurRadius: 8,
+                        color: Color(0x0A0F172A),
+                        blurRadius: 6,
+                        offset: Offset(0, 2),
                       ),
                     ],
                   ),

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/vibrant_theme.dart';
 
@@ -58,41 +57,17 @@ class _LedStatusDiodeState extends State<LedStatusDiode>
 
   @override
   Widget build(BuildContext context) {
-    Widget diode = AnimatedBuilder(
-      animation: _pulseCtrl,
-      builder: (context, _) {
-        final glowScale = 0.5 + 0.5 * _pulseCtrl.value;
-        return Container(
-          width: widget.size,
-          height: widget.size,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color.lerp(widget.color, Colors.white, 0.45)!,
-            boxShadow: [
-              BoxShadow(
-                color: widget.color.withValues(alpha: 0.9 * glowScale),
-                blurRadius: widget.size * 1.5,
-                spreadRadius: widget.size * 0.4 * glowScale,
-              ),
-              BoxShadow(
-                color: widget.color.withValues(alpha: 0.4 * glowScale),
-                blurRadius: widget.size * 3.5,
-                spreadRadius: widget.size * 1.0 * glowScale,
-              ),
-            ],
-          ),
-          child: Center(
-            child: Container(
-              width: widget.size * 0.4,
-              height: widget.size * 0.4,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        );
-      },
+    Widget diode = Container(
+      width: widget.size,
+      height: widget.size,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: widget.color,
+        border: Border.all(
+          color: widget.color.withValues(alpha: 0.35),
+          width: 1.0,
+        ),
+      ),
     );
 
     if (widget.label != null) {
@@ -107,7 +82,7 @@ class _LedStatusDiodeState extends State<LedStatusDiode>
               color: widget.color,
               fontSize: 11,
               fontWeight: FontWeight.w700,
-              letterSpacing: 1.1,
+              letterSpacing: 0.8,
             ),
           ),
         ],
@@ -193,7 +168,7 @@ class _LedCyberButtonState extends State<LedCyberButton> {
                     if (widget.icon != null) ...[
                       IconTheme(
                         data: const IconThemeData(
-                          color: VibrantColors.obsidianVoid,
+                          color: Colors.white,
                           size: 19,
                         ),
                         child: widget.icon!,
@@ -210,10 +185,10 @@ class _LedCyberButtonState extends State<LedCyberButton> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              color: VibrantColors.obsidianVoid,
+                              color: Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w900,
-                              letterSpacing: 1.2,
+                              letterSpacing: 1.1,
                             ),
                           ),
                           if (widget.subtitle != null)
@@ -221,10 +196,10 @@ class _LedCyberButtonState extends State<LedCyberButton> {
                               widget.subtitle!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: VibrantColors.obsidianVoid.withValues(alpha: 0.8),
+                              style: const TextStyle(
+                                color: Colors.white70,
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                         ],
@@ -264,7 +239,7 @@ class _CyberChamferClipper extends CustomClipper<Path> {
       oldClipper.chamfer != chamfer;
 }
 
-/// Custom painter for cyber button frame, specular highlights, and deep lowlights
+/// Custom painter for cyber button frame, specular highlights, and clean shadow
 class _CyberButtonFramePainter extends CustomPainter {
   final double chamfer;
   final bool isPressed;
@@ -290,11 +265,11 @@ class _CyberButtonFramePainter extends CustomPainter {
       ..lineTo(0, size.height)
       ..close();
 
-    // 1. Ambient LED Glow Drop Shadow
+    // 1. Soft clean drop shadow (no neon blur)
     if (!isPressed) {
       final glowPaint = Paint()
-        ..color = ledColor.withValues(alpha: 0.4)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 12);
+        ..color = const Color(0x1F0F172A)
+        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
       canvas.drawPath(path, glowPaint);
     }
 
@@ -307,28 +282,16 @@ class _CyberButtonFramePainter extends CustomPainter {
       ).createShader(rect);
     canvas.drawPath(path, fillPaint);
 
-    // 3. Specular Highlight (Top & Top-Left bevel)
+    // 3. Subtle top highlight
     final highlightPaint = Paint()
-      ..color = Colors.white.withValues(alpha: isPressed ? 0.2 : 0.65)
-      ..strokeWidth = 1.8
+      ..color = Colors.white.withValues(alpha: isPressed ? 0.1 : 0.35)
+      ..strokeWidth = 1.2
       ..style = PaintingStyle.stroke;
     final highlightPath = Path()
       ..moveTo(0, chamfer)
       ..lineTo(chamfer, 0)
       ..lineTo(size.width, 0);
     canvas.drawPath(highlightPath, highlightPaint);
-
-    // 4. Lowlight Shadow (Bottom & Bottom-Right bevel for 3D depth)
-    final shadowPaint = Paint()
-      ..color = Colors.black.withValues(alpha: isPressed ? 0.7 : 0.45)
-      ..strokeWidth = 2.0
-      ..style = PaintingStyle.stroke;
-    final shadowPath = Path()
-      ..moveTo(size.width, 0)
-      ..lineTo(size.width, size.height - chamfer)
-      ..lineTo(size.width - chamfer, size.height)
-      ..lineTo(0, size.height);
-    canvas.drawPath(shadowPath, shadowPaint);
   }
 
   @override
@@ -336,7 +299,7 @@ class _CyberButtonFramePainter extends CustomPainter {
       oldDelegate.isPressed != isPressed || oldDelegate.ledColor != ledColor;
 }
 
-/// Translucent picturesque glass card with specular highlights and an active LED indicator
+/// Clean, modern light card with crisp slate borders and soft elevation
 class VibrantLedCard extends StatelessWidget {
   final Widget child;
   final String? title;
@@ -361,108 +324,66 @@ class VibrantLedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget cardContent = Container(
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFF1E293B),
-            Color(0xFF162032),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: accentColor.withValues(alpha: 0.35),
+          color: const Color(0xFFE2E8F0),
           width: 1.2,
         ),
-        boxShadow: [
-          // Ambient soft shadow
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.35),
-            blurRadius: 18,
-            offset: const Offset(0, 8),
-          ),
-          // Vivid LED rim glow
-          BoxShadow(
-            color: ledColor.withValues(alpha: 0.15),
-            blurRadius: 20,
-            spreadRadius: 1,
+            color: Color(0x0A0F172A),
+            blurRadius: 14,
+            offset: Offset(0, 4),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-          child: Stack(
+        borderRadius: BorderRadius.circular(18),
+        child: Padding(
+          padding: padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Specular Top Highlight line
-              Positioned(
-                top: 0,
-                left: 20,
-                right: 20,
-                height: 1.2,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.transparent,
-                        Colors.white.withValues(alpha: 0.4),
-                        accentColor.withValues(alpha: 0.8),
-                        Colors.white.withValues(alpha: 0.4),
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-
-              Padding(
-                padding: padding,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+              if (title != null || trailing != null) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (title != null || trailing != null) ...[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if (title != null)
+                    if (title != null)
+                      Expanded(
+                        child: Row(
+                          children: [
+                            LedStatusDiode(
+                              color: ledColor,
+                              size: 7,
+                            ),
+                            const SizedBox(width: 8),
                             Expanded(
-                              child: Row(
-                                children: [
-                                  LedStatusDiode(
-                                    color: ledColor,
-                                    size: 7,
-                                  ),
-                                  const SizedBox(width: 9),
-                                  Expanded(
-                                    child: Text(
-                                      title!.toUpperCase(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        color: accentColor,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w800,
-                                        letterSpacing: 1.2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              child: Text(
+                                title!.toUpperCase(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: VibrantColors.textPrimary,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w800,
+                                  letterSpacing: 1.1,
+                                ),
                               ),
                             ),
-                          if (trailing != null) ...[
-                            const SizedBox(width: 8),
-                            trailing!,
                           ],
-                        ],
+                        ),
                       ),
-                      const SizedBox(height: 12),
+                    if (trailing != null) ...[
+                      const SizedBox(width: 8),
+                      trailing!,
                     ],
-                    child,
                   ],
                 ),
-              ),
+                const SizedBox(height: 12),
+              ],
+              child,
             ],
           ),
         ),
@@ -472,7 +393,7 @@ class VibrantLedCard extends StatelessWidget {
     if (onTap != null) {
       return InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(18),
         child: cardContent,
       );
     }
@@ -480,7 +401,7 @@ class VibrantLedCard extends StatelessWidget {
   }
 }
 
-/// Glowing Pill Badge with LED
+/// Clean Pill Badge with subtle tint
 class LedPillBadge extends StatelessWidget {
   final String label;
   final Color color;
@@ -498,15 +419,9 @@ class LedPillBadge extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: color.withValues(alpha: 0.35), width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: 0.15),
-            blurRadius: 8,
-          ),
-        ],
+        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -531,3 +446,4 @@ class LedPillBadge extends StatelessWidget {
     );
   }
 }
+
