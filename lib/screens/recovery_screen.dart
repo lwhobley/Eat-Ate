@@ -45,15 +45,14 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      _buildBiometricStat('HRV', '${r.hrvMs.round()} ms', VibrantColors.neonCyan),
+                      Expanded(child: _buildBiometricStat('HRV', '${r.hrvMs.round()} ms', VibrantColors.neonCyan)),
                       Container(width: 1, height: 32, color: Colors.white12),
-                      _buildBiometricStat('RHR', '${r.restingHr} bpm', VibrantColors.neonMagenta),
+                      Expanded(child: _buildBiometricStat('RHR', '${r.restingHr} bpm', VibrantColors.neonMagenta)),
                       Container(width: 1, height: 32, color: Colors.white12),
-                      _buildBiometricStat('STEPS', '${r.steps}', VibrantColors.neonLime),
+                      Expanded(child: _buildBiometricStat('STEPS', '${r.steps}', VibrantColors.neonLime)),
                       Container(width: 1, height: 32, color: Colors.white12),
-                      _buildBiometricStat('BURN', '${r.activeKcal} kcal', VibrantColors.neonGold),
+                      Expanded(child: _buildBiometricStat('BURN', '${r.activeKcal} kcal', VibrantColors.neonGold)),
                     ],
                   ),
                   const SizedBox(height: 14),
@@ -121,10 +120,15 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Sleep Battery',
-                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                      const Expanded(
+                        child: Text(
+                          'Sleep Battery',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
                       ),
+                      const SizedBox(width: 8),
                       Text(
                         '${sleep.toStringAsFixed(1)} hours',
                         style: const TextStyle(
@@ -154,10 +158,15 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Central Nervous System (CNS) Readiness',
-                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                      const Expanded(
+                        child: Text(
+                          'CNS Readiness',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
                       ),
+                      const SizedBox(width: 8),
                       Text(
                         '${readiness.round()} / 100',
                         style: const TextStyle(
@@ -232,12 +241,15 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
 
   Widget _buildBiometricStat(String label, String value, Color color) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           value,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: color,
-            fontSize: 14,
+            fontSize: 13.5,
             fontWeight: FontWeight.w900,
             shadows: [
               Shadow(color: color.withValues(alpha: 0.5), blurRadius: 8),

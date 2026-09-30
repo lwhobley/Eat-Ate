@@ -191,18 +191,31 @@ class _CinematicTransformationReelState
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                width: 22,
+                height: 22,
+                margin: const EdgeInsets.only(right: 6),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset(
+                    'assets/images/fist_bump_badge.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => const SizedBox.shrink(),
+                  ),
+                ),
+              ),
               const LedStatusDiode(
                 color: VibrantColors.neonLime,
-                size: 8,
+                size: 7,
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 6),
               Text(
                 'CINEMATIC TRANSFORMATION REEL'.toUpperCase(),
                 style: const TextStyle(
                   color: VibrantColors.neonCyan,
-                  fontSize: 12,
+                  fontSize: 11.5,
                   fontWeight: FontWeight.w900,
-                  letterSpacing: 2.2,
+                  letterSpacing: 1.5,
                 ),
               ),
             ],

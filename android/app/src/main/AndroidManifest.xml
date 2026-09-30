@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.health.READ_HEART_RATE_VARIABILITY" />
     <uses-permission android:name="android.permission.health.READ_RESTING_HEART_RATE" />
     <application
-        android:label="eat_ate"
+        android:label="Eat Or Ate"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

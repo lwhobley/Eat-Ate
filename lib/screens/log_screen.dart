@@ -530,14 +530,18 @@ class _LogScreenState extends State<LogScreen> {
               size: 16,
               color: isSelected ? activeColor : Colors.white60,
             ),
-            const SizedBox(width: 6),
-            Text(
-              title,
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.white60,
-                fontSize: 11,
-                fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
-                letterSpacing: 0.8,
+            const SizedBox(width: 5),
+            Flexible(
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: isSelected ? Colors.white : Colors.white60,
+                  fontSize: 10.5,
+                  fontWeight: isSelected ? FontWeight.w900 : FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
               ),
             ),
           ],
@@ -598,33 +602,40 @@ class _LogScreenState extends State<LogScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Icon(
-                isFree
-                    ? (count >= limit ? Icons.warning_amber_rounded : Icons.lock_clock)
-                    : Icons.all_inclusive,
-                size: 15,
-                color: isFree
-                    ? (count >= limit ? VibrantColors.neonAmber : Colors.white70)
-                    : tier.color,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                isFree
-                    ? 'DAILY LOGGING: $count / $limit USED TODAY'
-                    : 'UNLIMITED LOGGING ACTIVE (${tier.displayName.toUpperCase()})',
-                style: TextStyle(
+          Expanded(
+            child: Row(
+              children: [
+                Icon(
+                  isFree
+                      ? (count >= limit ? Icons.warning_amber_rounded : Icons.lock_clock)
+                      : Icons.all_inclusive,
+                  size: 15,
                   color: isFree
-                      ? (count >= limit ? VibrantColors.neonAmber : Colors.white)
+                      ? (count >= limit ? VibrantColors.neonAmber : Colors.white70)
                       : tier.color,
-                  fontSize: 10.5,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.5,
                 ),
-              ),
-            ],
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    isFree
+                        ? 'DAILY LOGGING: $count / $limit USED TODAY'
+                        : 'UNLIMITED LOGGING ACTIVE (${tier.displayName.toUpperCase()})',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: isFree
+                          ? (count >= limit ? VibrantColors.neonAmber : Colors.white)
+                          : tier.color,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
+          if (isFree) const SizedBox(width: 8),
           if (isFree)
             GestureDetector(
               onTap: () => SubscriptionPaywallView.show(context, widget.store),

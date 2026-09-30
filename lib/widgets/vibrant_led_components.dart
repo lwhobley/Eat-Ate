@@ -207,6 +207,8 @@ class _LedCyberButtonState extends State<LedCyberButton> {
                         children: [
                           Text(
                             widget.label.toUpperCase(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               color: VibrantColors.obsidianVoid,
                               fontSize: 13,
@@ -217,6 +219,8 @@ class _LedCyberButtonState extends State<LedCyberButton> {
                           if (widget.subtitle != null)
                             Text(
                               widget.subtitle!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 color: VibrantColors.obsidianVoid.withValues(alpha: 0.8),
                                 fontSize: 10,

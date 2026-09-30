@@ -40,7 +40,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
     final lean = widget.store.projectedLean;
     final text =
         'Future me check: ${lean >= 0.2 ? "sculpted & shredded" : lean <= -0.2 ? "bulking & softened" : "locked in on track"} '
-        '(${(widget.store.adherence * 100).round()}% locked in on Eat & Ate. We move!)';
+        '(${(widget.store.adherence * 100).round()}% locked in on Eat Or Ate. We move!)';
     if (rendered != null) {
       await Share.shareXFiles(
         [XFile.fromData(rendered, name: 'future-you.jpg', mimeType: 'image/jpeg')],
@@ -193,10 +193,17 @@ class _AvatarScreenState extends State<AvatarScreen> {
                         borderRadius: BorderRadius.circular(14),
                         border: Border.all(color: VibrantColors.neonLime.withValues(alpha: 0.4)),
                       ),
-                      child: const Icon(
-                        Icons.movie_creation_rounded,
-                        color: VibrantColors.neonLime,
-                        size: 26,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(13),
+                        child: Image.asset(
+                          'assets/images/eat_or_ate_icon.png',
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => const Icon(
+                            Icons.movie_creation_rounded,
+                            color: VibrantColors.neonLime,
+                            size: 26,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 14),
@@ -494,6 +501,8 @@ class _AvatarScreenState extends State<AvatarScreen> {
           child: Center(
             child: Text(
               label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: isSelected ? VibrantColors.neonLime : Colors.white70,
                 fontSize: 10,

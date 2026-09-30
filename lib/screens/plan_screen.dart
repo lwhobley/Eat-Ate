@@ -184,20 +184,23 @@ class PlanScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _buildMacroMetric(
-                        label: 'CALORIES',
-                        target: '${p.kcalTarget} kcal',
-                        eaten: '${store.eatenKcal.round()} fueled',
-                        color: VibrantColors.neonCyan,
+                      Expanded(
+                        child: _buildMacroMetric(
+                          label: 'CALORIES',
+                          target: '${p.kcalTarget} kcal',
+                          eaten: '${store.eatenKcal.round()} fueled',
+                          color: VibrantColors.neonCyan,
+                        ),
                       ),
                       Container(width: 1, height: 40, color: Colors.white12),
-                      _buildMacroMetric(
-                        label: 'PROTEIN',
-                        target: '${p.proteinTarget}g',
-                        eaten: '${store.eatenProtein.round()}g locked in',
-                        color: VibrantColors.neonMagenta,
+                      Expanded(
+                        child: _buildMacroMetric(
+                          label: 'PROTEIN',
+                          target: '${p.proteinTarget}g',
+                          eaten: '${store.eatenProtein.round()}g locked in',
+                          color: VibrantColors.neonMagenta,
+                        ),
                       ),
                     ],
                   ),

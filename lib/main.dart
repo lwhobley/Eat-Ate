@@ -61,7 +61,7 @@ class _EatAteAppState extends State<EatAteApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Eat & Ate • Vibrant Fitness',
+      title: 'Eat Or Ate • AI Health Operating System',
       debugShowCheckedModeBanner: false,
       theme: VibrantTheme.darkTheme,
       home: _showTransformationReel
@@ -107,51 +107,62 @@ class _EatAteAppState extends State<EatAteApp> {
 
   Widget _buildVibrantAppBar() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Logo & Kinetic LED Badge
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.all(8),
+                width: 38,
+                height: 38,
                 decoration: BoxDecoration(
-                  color: VibrantColors.neonLime.withValues(alpha: 0.12),
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color: VibrantColors.neonLime.withValues(alpha: 0.4),
+                    color: VibrantColors.neonCyan.withValues(alpha: 0.5),
+                    width: 1.2,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: VibrantColors.neonLime.withValues(alpha: 0.2),
-                      blurRadius: 10,
+                      color: VibrantColors.neonCyan.withValues(alpha: 0.25),
+                      blurRadius: 8,
                     ),
                   ],
                 ),
-                child: const Icon(
-                  Icons.electric_bolt_rounded,
-                  color: VibrantColors.neonLime,
-                  size: 20,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(9),
+                  child: Image.asset(
+                    'assets/images/fist_bump_badge.png',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => const Icon(
+                      Icons.electric_bolt_rounded,
+                      color: VibrantColors.neonCyan,
+                      size: 18,
+                    ),
+                  ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 8),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'EAT & ATE',
+                    'EAT OR ATE',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 15,
                       fontWeight: FontWeight.w900,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1.1,
                       shadows: [
-                        Shadow(color: VibrantColors.neonLime, blurRadius: 12),
+                        Shadow(color: VibrantColors.neonCyan, blurRadius: 8),
                       ],
                     ),
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       const LedStatusDiode(
                         color: VibrantColors.neonCyan,
@@ -159,12 +170,12 @@ class _EatAteAppState extends State<EatAteApp> {
                       ),
                       const SizedBox(width: 5),
                       const Text(
-                        'AI ENGINE ACTIVE',
+                        'AI HEALTH OS',
                         style: TextStyle(
                           color: VibrantColors.neonCyan,
-                          fontSize: 9,
+                          fontSize: 8.5,
                           fontWeight: FontWeight.w700,
-                          letterSpacing: 0.8,
+                          letterSpacing: 0.7,
                         ),
                       ),
                     ],
@@ -173,12 +184,14 @@ class _EatAteAppState extends State<EatAteApp> {
               ),
             ],
           ),
+          const SizedBox(width: 8),
 
           // Actions: Subscription Pill, Persona & Reel Buttons
-          Flexible(
+          Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               reverse: true,
+              physics: const BouncingScrollPhysics(),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

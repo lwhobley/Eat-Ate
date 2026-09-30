@@ -44,17 +44,21 @@ class AiPersonaSelector extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(store.aiPersona.icon, color: store.aiPersona.color, size: 14),
-            const SizedBox(width: 6),
-            Text(
-              store.aiPersona.displayName.toUpperCase(),
-              style: TextStyle(
-                color: store.aiPersona.color,
-                fontSize: 10,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 0.8,
+            const SizedBox(width: 5),
+            Flexible(
+              child: Text(
+                store.aiPersona.displayName.toUpperCase(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: store.aiPersona.color,
+                  fontSize: 10,
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 0.7,
+                ),
               ),
             ),
-            const SizedBox(width: 4),
+            const SizedBox(width: 2),
             Icon(Icons.arrow_drop_down, color: store.aiPersona.color, size: 16),
           ],
         ),
