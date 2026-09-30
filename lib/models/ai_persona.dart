@@ -25,39 +25,39 @@ extension AiPersonaExtension on AiPersona {
   String get tagline {
     switch (this) {
       case AiPersona.kind:
-        return 'Hype Bestie • Zero Guilt';
+        return 'Supportive & Encouraging • Positive Momentum';
       case AiPersona.matterOfFact:
-        return 'Pure Math • High Signal';
+        return 'Data-Driven & Objective • High Signal';
       case AiPersona.careful:
-        return 'Longevity Guard • Anti-Burnout';
+        return 'Longevity & Recovery • Injury Prevention';
       case AiPersona.explicitlyHonest:
-        return 'Savage Reality Check • No Cap';
+        return 'Direct & Unfiltered • High Accountability';
     }
   }
 
   String get description {
     switch (this) {
       case AiPersona.kind:
-        return 'Empathetic hype bestie. Zero guilt, validates cravings, and reminds you that we move regardless. "You got this, let\'s keep cooking."';
+        return 'Empathetic and supportive coaching. Validates cravings, eliminates guilt, and frames adjustments as sustainable self-care steps.';
       case AiPersona.matterOfFact:
-        return 'Straight science, pure numbers, zero fluff. Gives you the raw caloric math and metabolic reality without the drama.';
+        return 'Objective, numbers-first coaching. Delivers clear caloric math, metabolic pacing, and straightforward facts.';
       case AiPersona.careful:
-        return 'Protects your nervous system and longevity. Paces the grind so you don\'t crash out or wreck your joints.';
+        return 'Protects your recovery, central nervous system, and joint health. Emphasizes sustainable progression to prevent burnout.';
       case AiPersona.explicitlyHonest:
-        return 'Unfiltered tough love. Calls out excuses, delulu choices, and diet slip-ups with razor-sharp bluntness. "Be so for real right now."';
+        return 'Unfiltered, direct accountability. Cuts through rationalizations and excuses with candid, constructive feedback.';
     }
   }
 
   Color get color {
     switch (this) {
       case AiPersona.kind:
-        return const Color(0xFFFF69B4); // Warm Neon Pink
+        return const Color(0xFFE11D48); // Rose 600
       case AiPersona.matterOfFact:
-        return VibrantColors.neonCyan;
+        return VibrantColors.neonCyan;   // Ocean blue 600
       case AiPersona.careful:
-        return VibrantColors.neonLime;
+        return VibrantColors.neonLime;   // Emerald 600
       case AiPersona.explicitlyHonest:
-        return const Color(0xFFFF3344); // Hyper Red / Flame
+        return const Color(0xFFDC2626); // Crimson 600
     }
   }
 
@@ -77,13 +77,13 @@ extension AiPersonaExtension on AiPersona {
   String get promptGuidance {
     switch (this) {
       case AiPersona.kind:
-        return 'TONE: Kind, supportive, and encouraging like a warm gym bestie. Use modern positive vernacular (e.g., "we move", "protect your peace", "you are doing great", "pure W"). Focus on positive momentum, eliminate all guilt or shame, and frame adjustments as gentle self-care steps.';
+        return 'TONE: Kind, supportive, and encouraging. Focus on positive momentum, eliminate guilt or shame, and frame adjustments as gentle self-care steps.';
       case AiPersona.matterOfFact:
-        return 'TONE: Strictly matter-of-fact, objective, and clinical. Present numbers, metabolic pathways, and caloric realities with zero fluff, emotion, or drama. High signal, pure data.';
+        return 'TONE: Strictly matter-of-fact, objective, and clinical. Present numbers, metabolic pathways, and caloric realities with clarity, high signal, and pure data.';
       case AiPersona.careful:
-        return 'TONE: Careful, prudent, and longevity-focused. Prioritize central nervous system (CNS) recovery, injury prevention, gradual progress, and avoiding burnout or crashing out ("pace the grind", "sustainable gains").';
+        return 'TONE: Careful, prudent, and longevity-focused. Prioritize central nervous system (CNS) recovery, injury prevention, gradual progress, and avoiding burnout.';
       case AiPersona.explicitlyHonest:
-        return 'TONE: Explicitly honest, brutally direct, and totally unfiltered. Allow for abrasive, unapologetic bluntness and tough love. Call out excuses, delulu reasoning, and nutritional slip-ups directly like a savage drill sergeant or brutally honest gym bro who refuses to let you lie to yourself. Use sharp current vernacular where fitting ("be so for real right now", "delulu", "down bad", "you\'re cooked if you keep this up", "no cap", "lock in").';
+        return 'TONE: Explicitly honest, direct, and candid. Call out excuses, dietary drift, and rationalizations with sharp, constructive clarity and high accountability.';
     }
   }
 }

@@ -41,14 +41,13 @@ class AiPersonaSelector extends StatelessWidget {
             const SizedBox(width: 5),
             Flexible(
               child: Text(
-                store.aiPersona.displayName.toUpperCase(),
+                store.aiPersona.displayName,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: store.aiPersona.color,
-                  fontSize: 10,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.7,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -62,11 +61,11 @@ class AiPersonaSelector extends StatelessWidget {
 
   Widget _buildExpanded(BuildContext context) {
     return VibrantLedCard(
-      title: 'AI COACHING VIBE & HONESTY LEVEL',
+      title: 'Coaching Feedback Style',
       ledColor: store.aiPersona.color,
       accentColor: store.aiPersona.color,
       trailing: LedPillBadge(
-        label: store.aiPersona.displayName.toUpperCase(),
+        label: store.aiPersona.displayName,
         color: store.aiPersona.color,
         icon: store.aiPersona.icon,
       ),
@@ -74,8 +73,8 @@ class AiPersonaSelector extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Choose how your AI communicates consequences, rewards, and feedback:',
-            style: TextStyle(color: VibrantColors.textSecondary, fontSize: 12),
+            'Select how your AI coach delivers daily feedback and adjustments:',
+            style: TextStyle(color: VibrantColors.textSecondary, fontSize: 13),
           ),
           const SizedBox(height: 12),
           Column(
@@ -89,12 +88,12 @@ class AiPersonaSelector extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? persona.color.withValues(alpha: 0.08)
+                        ? persona.color.withValues(alpha: 0.06)
                         : const Color(0xFFF8FAFC),
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
                       color: isSelected
-                          ? persona.color.withValues(alpha: 0.4)
+                          ? persona.color.withValues(alpha: 0.5)
                           : const Color(0xFFE2E8F0),
                       width: isSelected ? 1.5 : 1.0,
                     ),
@@ -127,16 +126,20 @@ class AiPersonaSelector extends StatelessWidget {
                                         ? VibrantColors.textPrimary
                                         : VibrantColors.textSecondary,
                                     fontSize: 13,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  '• ${persona.tagline}',
-                                  style: TextStyle(
-                                    color: persona.color,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600,
+                                const SizedBox(width: 6),
+                                Expanded(
+                                  child: Text(
+                                    '• ${persona.tagline}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: persona.color,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -145,17 +148,22 @@ class AiPersonaSelector extends StatelessWidget {
                             Text(
                               persona.description,
                               style: const TextStyle(
-                                color: Color(0xFF94A3B8),
+                                color: Color(0xFF64748B),
                                 fontSize: 11,
+                                height: 1.3,
                               ),
                             ),
                           ],
                         ),
                       ),
                       if (isSelected)
-                        LedStatusDiode(
-                          color: persona.color,
-                          size: 8,
+                        Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: persona.color,
+                          ),
                         ),
                     ],
                   ),
@@ -172,21 +180,21 @@ class AiPersonaSelector extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: const Color(0xFF07080E),
+      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.fromLTRB(18, 12, 18, 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 38,
+              width: 36,
               height: 4,
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
-                color: Colors.white24,
+                color: const Color(0xFFE2E8F0),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -194,12 +202,11 @@ class AiPersonaSelector extends StatelessWidget {
             const SizedBox(height: 14),
             LedCyberButton(
               onPressed: () => Navigator.pop(ctx),
-              label: 'LOCK IN TONE LEVEL',
+              label: 'Save Coaching Style',
               gradientColors: const [
                 VibrantColors.neonLime,
-                VibrantColors.neonCyan,
+                Color(0xFF047857),
               ],
-              ledColor: VibrantColors.neonLime,
               fullWidth: true,
             ),
           ],

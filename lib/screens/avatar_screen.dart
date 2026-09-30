@@ -25,7 +25,6 @@ class _AvatarScreenState extends State<AvatarScreen> {
   bool _isFemaleModel = false;
 
   Future<void> _pickBase() async {
-    // multi-photo onboard (up to 10), best-first kept in store
     final pics = await ImagePicker().pickMultiImage();
     if (pics.isEmpty) return;
     final bytes = <Uint8List>[];
@@ -39,8 +38,8 @@ class _AvatarScreenState extends State<AvatarScreen> {
     final rendered = widget.store.avatarImageBytes;
     final lean = widget.store.projectedLean;
     final text =
-        'Future me check: ${lean >= 0.2 ? "sculpted & shredded" : lean <= -0.2 ? "bulking & softened" : "locked in on track"} '
-        '(${(widget.store.adherence * 100).round()}% locked in on Eat Or Ate. We move!)';
+        'Future body projection: ${lean >= 0.2 ? "Athletic & Lean" : lean <= -0.2 ? "Surplus / Building" : "On Track"} '
+        '(${(widget.store.adherence * 100).round()}% plan adherence on Eat & Ate)';
     if (rendered != null) {
       await Share.shareXFiles(
         [XFile.fromData(rendered, name: 'future-you.jpg', mimeType: 'image/jpeg')],
@@ -64,12 +63,12 @@ class _AvatarScreenState extends State<AvatarScreen> {
         Widget visual;
         if (rendered != null) {
           visual = ClipRRect(
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(18),
             child: Image.memory(rendered, height: 260, fit: BoxFit.cover),
           );
         } else if (base != null) {
           visual = ClipRRect(
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(18),
             child: Image.memory(base, width: 220, height: 260, fit: BoxFit.cover),
           );
         } else {
@@ -86,21 +85,21 @@ class _AvatarScreenState extends State<AvatarScreen> {
             width: 220,
             height: 290,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
+              borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color: VibrantColors.neonLime,
-                width: 2.0,
+                color: const Color(0xFFE2E8F0),
+                width: 1.5,
               ),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.08),
-                  blurRadius: 14,
-                  offset: const Offset(0, 4),
+                  color: Color(0x0A0F172A),
+                  blurRadius: 12,
+                  offset: Offset(0, 4),
                 ),
               ],
             ),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(16),
               child: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -121,12 +120,12 @@ class _AvatarScreenState extends State<AvatarScreen> {
                     left: 0,
                     right: 0,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
                             Colors.transparent,
-                            Colors.black.withValues(alpha: 0.85),
+                            Colors.black.withValues(alpha: 0.75),
                           ],
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -137,25 +136,22 @@ class _AvatarScreenState extends State<AvatarScreen> {
                         children: [
                           Text(
                             shredProgress > 0.65
-                                ? '🔥 SHREDDED PEAK'
+                                ? 'Peak Conditioning'
                                 : shredProgress > 0.35
-                                    ? '⚡ METABOLIC BURN'
-                                    : '🌱 DAY 1 BASELINE',
-                            style: TextStyle(
-                              color: shredProgress > 0.65
-                                  ? VibrantColors.neonLime
-                                  : Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 0.8,
+                                    ? 'Lean Progress'
+                                    : 'Baseline',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                           Text(
                             '${(shredProgress * 100).round()}%',
                             style: const TextStyle(
-                              color: VibrantColors.neonCyan,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ],
@@ -169,62 +165,62 @@ class _AvatarScreenState extends State<AvatarScreen> {
         }
 
         final statusDesc = lean >= 0.2
-            ? 'Shredded / Vascular'
+            ? 'Athletic / Lean'
             : lean <= -0.2
-                ? 'Bulking / Softened'
-                : 'Locked In / On Track';
+                ? 'Surplus / Building'
+                : 'Balanced / On Track';
 
         return ListView(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
           children: [
-            // Prominent Cinematic Transformation Reel Promo Card
+            // Transformation Reel Card
             if (widget.onOpenReel != null)
               VibrantLedCard(
-                title: 'CINEMATIC GLOW-UP REEL',
+                title: 'Physique Transformation Reel',
                 ledColor: VibrantColors.neonLime,
                 accentColor: VibrantColors.neonLime,
                 padding: const EdgeInsets.all(14),
                 child: Row(
                   children: [
                     Container(
-                      width: 50,
-                      height: 50,
+                      width: 48,
+                      height: 48,
                       decoration: BoxDecoration(
-                        color: VibrantColors.neonLime.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(14),
+                        color: VibrantColors.neonLime.withValues(alpha: 0.10),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: VibrantColors.border),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(13),
+                        borderRadius: BorderRadius.circular(11),
                         child: Image.asset(
                           'assets/images/eat_or_ate_icon.png',
                           fit: BoxFit.cover,
                           errorBuilder: (_, _, _) => const Icon(
-                            Icons.movie_creation_rounded,
+                            Icons.movie_creation_outlined,
                             color: VibrantColors.neonLime,
-                            size: 26,
+                            size: 24,
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(width: 14),
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Evolution Reel',
+                          Text(
+                            'Transformation Reel',
                             style: TextStyle(
                               color: VibrantColors.textPrimary,
                               fontSize: 14,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                          const Text(
-                            'Watch 90-day physique transformation',
+                          Text(
+                            'Preview 90-day physique timeline',
                             style: TextStyle(
                               color: VibrantColors.textSecondary,
-                              fontSize: 11,
+                              fontSize: 12,
                             ),
                           ),
                         ],
@@ -232,69 +228,66 @@ class _AvatarScreenState extends State<AvatarScreen> {
                     ),
                     LedCyberButton(
                       onPressed: widget.onOpenReel,
-                      label: 'WATCH REEL',
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                      chamfer: 10,
-                      gradientColors: const [VibrantColors.neonLime, VibrantColors.neonCyan],
-                      ledColor: VibrantColors.neonLime,
+                      label: 'Watch',
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      gradientColors: const [Color(0xFF059669), Color(0xFF047857)],
                     ),
                   ],
                 ),
               ),
             const SizedBox(height: 14),
 
-            // Avatar Visual Hologram Card
+            // Projected Body Composition Card
             VibrantLedCard(
-              title: 'FUTURE PHYSIQUE PROJECTION',
+              title: 'Projected Body Composition',
               ledColor: VibrantColors.neonMagenta,
               accentColor: VibrantColors.neonMagenta,
               trailing: LedPillBadge(
-                label: statusDesc.toUpperCase(),
+                label: statusDesc,
                 color: VibrantColors.neonMagenta,
               ),
               child: Column(
                 children: [
-                  // Model Gender Selector & Preview Toggle
+                  // Model Gender Selector
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildModelPill('🏋️ MAN MODEL', !_isFemaleModel, () => setState(() => _isFemaleModel = false)),
+                      _buildModelPill('Male Baseline', !_isFemaleModel, () => setState(() => _isFemaleModel = false)),
                       const SizedBox(width: 10),
-                      _buildModelPill('🏃‍♀️ WOMAN MODEL', _isFemaleModel, () => setState(() => _isFemaleModel = true)),
+                      _buildModelPill('Female Baseline', _isFemaleModel, () => setState(() => _isFemaleModel = true)),
                     ],
                   ),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 16),
 
                   Center(
                     child: visual,
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    '${store.baseAvatarPhotos.length}/10 Photos Linked • ${(store.adherence * 100).round()}% Lock-In Rate',
+                    '${store.baseAvatarPhotos.length}/10 Photos Linked • ${(store.adherence * 100).round()}% Adherence',
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: VibrantColors.textSecondary,
                       fontSize: 13,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 16),
 
                   // Lean Slider
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      Text('← Soft', style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w600)),
-                      Text('Recomp Dial', style: TextStyle(color: VibrantColors.neonCyan, fontSize: 11, fontWeight: FontWeight.bold)),
-                      Text('Shredded →', style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w600)),
+                      Text('Softer', style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w500)),
+                      Text('Body Composition Slider', style: TextStyle(color: VibrantColors.textPrimary, fontSize: 11, fontWeight: FontWeight.w600)),
+                      Text('Leaner', style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11, fontWeight: FontWeight.w500)),
                     ],
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor: VibrantColors.neonLime,
                       inactiveTrackColor: VibrantColors.border,
-                      thumbColor: VibrantColors.neonCyan,
-                      overlayColor: VibrantColors.neonCyan.withValues(alpha: 0.15),
+                      thumbColor: VibrantColors.neonLime,
                     ),
                     child: Slider(
                       value: store.avatarLean,
@@ -310,13 +303,13 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   // Quick Milestone Jump Buttons
                   Row(
                     children: [
-                      _buildMilestonePill('Day 1: Base', -0.5, store),
+                      _buildMilestonePill('Day 1', -0.5, store),
                       const SizedBox(width: 6),
-                      _buildMilestonePill('Day 30: Burn', -0.1, store),
+                      _buildMilestonePill('Day 30', -0.1, store),
                       const SizedBox(width: 6),
-                      _buildMilestonePill('Day 60: Sculpt', 0.3, store),
+                      _buildMilestonePill('Day 60', 0.3, store),
                       const SizedBox(width: 6),
-                      _buildMilestonePill('Day 90: Shred', 0.8, store),
+                      _buildMilestonePill('Day 90', 0.8, store),
                     ],
                   ),
                   const SizedBox(height: 14),
@@ -330,11 +323,11 @@ class _AvatarScreenState extends State<AvatarScreen> {
                     ),
                     child: SwitchListTile(
                       title: const Text(
-                        'Auto-drift with adherence',
-                        style: TextStyle(color: VibrantColors.textPrimary, fontSize: 13, fontWeight: FontWeight.w700),
+                        'Auto-update with adherence',
+                        style: TextStyle(color: VibrantColors.textPrimary, fontSize: 13, fontWeight: FontWeight.w600),
                       ),
                       subtitle: const Text(
-                        'Physique evolves automatically based on logged meals and workouts',
+                        'Adjusts projection automatically based on logged meals and workouts',
                         style: TextStyle(color: VibrantColors.textSecondary, fontSize: 11),
                       ),
                       activeThumbColor: VibrantColors.neonLime,
@@ -349,7 +342,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
 
             // Action Buttons
             VibrantLedCard(
-              title: 'PHYSIQUE LAB ACTIONS',
+              title: 'Avatar & Progress Actions',
               ledColor: VibrantColors.neonCyan,
               accentColor: VibrantColors.neonCyan,
               child: Column(
@@ -367,11 +360,10 @@ class _AvatarScreenState extends State<AvatarScreen> {
                             }
                           },
                     label: _rendering
-                        ? 'Generating Neural Glow-Up…'
-                        : 'Render Neural Future You',
+                        ? 'Generating Physique Preview…'
+                        : 'Generate Personalized Avatar',
                     icon: const Icon(Icons.auto_awesome),
-                    gradientColors: const [VibrantColors.neonMagenta, Color(0xFF9333EA)],
-                    ledColor: VibrantColors.neonMagenta,
+                    gradientColors: const [Color(0xFF0284C7), Color(0xFF0369A1)],
                     fullWidth: true,
                   ),
                   const SizedBox(height: 10),
@@ -381,23 +373,19 @@ class _AvatarScreenState extends State<AvatarScreen> {
                         child: LedCyberButton(
                           onPressed: _pickBase,
                           label: store.baseAvatarPhotos.isEmpty ? 'Upload Selfies' : 'Add Selfies',
-                          icon: const Icon(Icons.upload),
-                          gradientColors: const [Color(0xFF0284C7), Color(0xFF0369A1)],
-                          ledColor: VibrantColors.neonCyan,
+                          icon: const Icon(Icons.upload_rounded),
+                          gradientColors: const [Color(0xFF475569), Color(0xFF334155)],
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                          chamfer: 10,
                         ),
                       ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: LedCyberButton(
                           onPressed: _share,
-                          label: 'Share Glow-Up',
-                          icon: const Icon(Icons.share),
+                          label: 'Share Progress',
+                          icon: const Icon(Icons.share_rounded),
                           gradientColors: const [Color(0xFF059669), Color(0xFF047857)],
-                          ledColor: VibrantColors.neonLime,
                           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                          chamfer: 10,
                         ),
                       ),
                     ],
@@ -405,12 +393,10 @@ class _AvatarScreenState extends State<AvatarScreen> {
                   const SizedBox(height: 10),
                   LedCyberButton(
                     onPressed: store.skipWeek,
-                    label: 'Simulate 1-Week Gym Hiatus',
-                    icon: const Icon(Icons.history_toggle_off),
+                    label: 'Simulate 1-Week Break',
+                    icon: const Icon(Icons.history_toggle_off_rounded),
                     gradientColors: const [Color(0xFFE11D48), Color(0xFFBE123C)],
-                    ledColor: VibrantColors.neonMagenta,
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                    chamfer: 10,
                     fullWidth: true,
                   ),
                 ],
@@ -429,23 +415,22 @@ class _AvatarScreenState extends State<AvatarScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
           color: isSelected
-              ? VibrantColors.neonCyan.withValues(alpha: 0.12)
+              ? const Color(0xFF0284C7).withValues(alpha: 0.10)
               : const Color(0xFFF1F5F9),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected
-                ? VibrantColors.neonCyan
+                ? const Color(0xFF0284C7)
                 : VibrantColors.border,
-            width: 1.2,
+            width: 1.0,
           ),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? VibrantColors.neonCyan : VibrantColors.textSecondary,
-            fontSize: 11,
-            fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
-            letterSpacing: 0.5,
+            color: isSelected ? const Color(0xFF0284C7) : VibrantColors.textSecondary,
+            fontSize: 12,
+            fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
           ),
         ),
       ),
@@ -478,8 +463,8 @@ class _AvatarScreenState extends State<AvatarScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: isSelected ? VibrantColors.neonLime : VibrantColors.textSecondary,
-                fontSize: 10,
-                fontWeight: isSelected ? FontWeight.w800 : FontWeight.w600,
+                fontSize: 11,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
               ),
             ),
           ),

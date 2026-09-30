@@ -31,15 +31,15 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
       builder: (context, _) {
         final r = widget.store.recovery;
         return ListView(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
           children: [
-            // Wearable Biometrics HUD
+            // Wearable Biometrics
             VibrantLedCard(
-              title: 'BIOMETRIC TELEMETRY HUD (${widget.store.recoverySource.toUpperCase()})',
+              title: 'Biometrics & Wearables (${widget.store.recoverySource})',
               ledColor: VibrantColors.neonGold,
               accentColor: VibrantColors.neonGold,
               trailing: const LedPillBadge(
-                label: 'ONLINE',
+                label: 'Connected',
                 color: VibrantColors.neonLime,
               ),
               child: Column(
@@ -48,14 +48,14 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                     children: [
                       Expanded(child: _buildBiometricStat('HRV', '${r.hrvMs.round()} ms', VibrantColors.neonCyan)),
                       Container(width: 1, height: 32, color: VibrantColors.border),
-                      Expanded(child: _buildBiometricStat('RHR', '${r.restingHr} bpm', VibrantColors.neonMagenta)),
+                      Expanded(child: _buildBiometricStat('Resting HR', '${r.restingHr} bpm', VibrantColors.neonMagenta)),
                       Container(width: 1, height: 32, color: VibrantColors.border),
-                      Expanded(child: _buildBiometricStat('STEPS', '${r.steps}', VibrantColors.neonLime)),
+                      Expanded(child: _buildBiometricStat('Steps', '${r.steps}', VibrantColors.neonLime)),
                       Container(width: 1, height: 32, color: VibrantColors.border),
-                      Expanded(child: _buildBiometricStat('BURN', '${r.activeKcal} kcal', VibrantColors.neonGold)),
+                      Expanded(child: _buildBiometricStat('Burn', '${r.activeKcal} kcal', VibrantColors.neonGold)),
                     ],
                   ),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 16),
                   LedCyberButton(
                     onPressed: () async {
                       if (!widget.store.subscriptionTier.hasWearableSync) {
@@ -64,10 +64,10 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                           const SnackBar(
                             backgroundColor: Color(0xFF0F172A),
                             content: Text(
-                              'Bi-directional wearable sync (Apple Health, Oura, Whoop) requires Pro.',
+                              'Wearable sync (Apple Health, Oura, Whoop) requires Pro.',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w700),
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         );
@@ -81,12 +81,11 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                       });
                     },
                     label: widget.store.subscriptionTier.hasWearableSync
-                        ? 'Sync Wearables & Bio-Rings'
-                        : 'Unlock Wearable Telemetry (Pro)',
+                        ? 'Sync Wearable Devices'
+                        : 'Connect Wearables (Pro)',
                     subtitle: 'Apple Health • Oura Ring • Whoop • Health Connect',
-                    icon: const Icon(Icons.sync),
-                    gradientColors: const [VibrantColors.neonGold, Color(0xFFB45309)],
-                    ledColor: VibrantColors.neonGold,
+                    icon: const Icon(Icons.sync_rounded),
+                    gradientColors: const [Color(0xFFD97706), Color(0xFFB45309)],
                     fullWidth: true,
                   ),
                   if (status != null) ...[
@@ -100,7 +99,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                       ),
                       child: Text(
                         status!,
-                        style: const TextStyle(color: VibrantColors.neonLime, fontSize: 12, fontWeight: FontWeight.w700),
+                        style: const TextStyle(color: VibrantColors.neonLime, fontSize: 12, fontWeight: FontWeight.w600),
                       ),
                     ),
                   ],
@@ -111,7 +110,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
 
             // Sleep & Readiness Adjustment
             VibrantLedCard(
-              title: 'RECOVERY BATTERY & READINESS',
+              title: 'Sleep & Readiness Assessment',
               ledColor: VibrantColors.neonCyan,
               accentColor: VibrantColors.neonCyan,
               child: Column(
@@ -120,21 +119,16 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
-                        child: Text(
-                          'Sleep Battery',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: VibrantColors.textPrimary, fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
+                      const Text(
+                        'Sleep Duration',
+                        style: TextStyle(color: VibrantColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(width: 8),
                       Text(
                         '${sleep.toStringAsFixed(1)} hours',
                         style: const TextStyle(
                           color: VibrantColors.neonCyan,
                           fontSize: 16,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ],
@@ -143,7 +137,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor: VibrantColors.neonCyan,
                       inactiveTrackColor: VibrantColors.border,
-                      thumbColor: VibrantColors.neonLime,
+                      thumbColor: VibrantColors.neonCyan,
                     ),
                     child: Slider(
                       value: sleep,
@@ -158,21 +152,16 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Expanded(
-                        child: Text(
-                          'CNS Readiness',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: VibrantColors.textPrimary, fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
+                      const Text(
+                        'Readiness Score',
+                        style: TextStyle(color: VibrantColors.textPrimary, fontSize: 14, fontWeight: FontWeight.w600),
                       ),
-                      const SizedBox(width: 8),
                       Text(
                         '${readiness.round()} / 100',
                         style: const TextStyle(
                           color: VibrantColors.neonLime,
                           fontSize: 16,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ],
@@ -181,7 +170,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                     data: SliderTheme.of(context).copyWith(
                       activeTrackColor: VibrantColors.neonLime,
                       inactiveTrackColor: VibrantColors.border,
-                      thumbColor: VibrantColors.neonCyan,
+                      thumbColor: VibrantColors.neonLime,
                     ),
                     child: Slider(
                       value: readiness,
@@ -195,10 +184,9 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
 
                   LedCyberButton(
                     onPressed: () => widget.store.setRecovery(sleep, readiness.round()),
-                    label: 'Save Telemetry & Recalculate Blueprint',
-                    icon: const Icon(Icons.bolt),
-                    gradientColors: const [VibrantColors.neonLime, VibrantColors.neonCyan],
-                    ledColor: VibrantColors.neonLime,
+                    label: 'Save Recovery & Update Plan',
+                    icon: const Icon(Icons.check_rounded),
+                    gradientColors: const [VibrantColors.neonLime, Color(0xFF047857)],
                     fullWidth: true,
                   ),
                 ],
@@ -208,7 +196,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
 
             // Quick Simulation Presets
             VibrantLedCard(
-              title: 'REAL-TIME SIMULATIONS',
+              title: 'Quick Scenarios',
               ledColor: VibrantColors.neonMagenta,
               accentColor: VibrantColors.neonMagenta,
               child: Wrap(
@@ -216,17 +204,17 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                 runSpacing: 8,
                 children: [
                   _buildQuickAction(
-                    label: '⚡ All-Nighter (4.5h Sleep)',
+                    label: 'Short Sleep (4.5h)',
                     color: VibrantColors.neonMagenta,
                     onTap: () => widget.store.setRecovery(4.5, 42),
                   ),
                   _buildQuickAction(
-                    label: '🍕 Dirty Bulk Feast (+1200 kcal)',
+                    label: 'Heavy Meal (+1,200 kcal)',
                     color: VibrantColors.neonGold,
                     onTap: () => widget.store.addFood('Cheeseburger, large fries & shake'),
                   ),
                   _buildQuickAction(
-                    label: '✨ Peak Zen Mode (8.5h Sleep)',
+                    label: 'Restful Sleep (8.5h)',
                     color: VibrantColors.neonLime,
                     onTap: () => widget.store.setRecovery(8.5, 92),
                   ),
@@ -249,18 +237,19 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: color,
-            fontSize: 13.5,
-            fontWeight: FontWeight.w900,
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
           ),
         ),
         const SizedBox(height: 2),
         Text(
           label,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: const TextStyle(
-            color: VibrantColors.textSecondary,
-            fontSize: 9,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 0.8,
+            color: Color(0xFF64748B),
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ],
@@ -278,22 +267,18 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
           color: color.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withValues(alpha: 0.25)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 6,
-              offset: const Offset(0, 2),
-            ),
-          ],
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: color.withValues(alpha: 0.25),
+            width: 1,
+          ),
         ),
         child: Text(
           label,
           style: TextStyle(
             color: color,
             fontSize: 12,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

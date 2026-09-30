@@ -6,7 +6,6 @@ import 'screens/avatar_screen.dart';
 import 'screens/recovery_screen.dart';
 import 'theme/vibrant_theme.dart';
 import 'widgets/motion_graphic_background.dart';
-import 'widgets/vibrant_led_components.dart';
 import 'widgets/floating_neon_dock.dart';
 import 'widgets/cinematic_transformation_reel.dart';
 import 'widgets/ai_persona_selector.dart';
@@ -84,7 +83,7 @@ class _EatAteAppState extends State<EatAteApp> {
     ];
 
     return Scaffold(
-      extendBody: true,
+      extendBody: false,
       body: MotionGraphicBackground(
         child: SafeArea(
           bottom: false,
@@ -106,30 +105,39 @@ class _EatAteAppState extends State<EatAteApp> {
   }
 
   Widget _buildVibrantAppBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            color: Color(0xFFE2E8F0),
+            width: 1.0,
+          ),
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Logo & Kinetic LED Badge
+          // Logo & Title
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                width: 38,
-                height: 38,
+                width: 36,
+                height: 36,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     color: const Color(0xFFE2E8F0),
-                    width: 1.2,
+                    width: 1.0,
                   ),
                   boxShadow: const [
                     BoxShadow(
-                      color: Color(0x0A0F172A),
-                      blurRadius: 6,
-                      offset: Offset(0, 2),
+                      color: Color(0x080F172A),
+                      blurRadius: 4,
+                      offset: Offset(0, 1),
                     ),
                   ],
                 ),
@@ -139,45 +147,34 @@ class _EatAteAppState extends State<EatAteApp> {
                     'assets/images/fist_bump_badge.png',
                     fit: BoxFit.cover,
                     errorBuilder: (_, _, _) => const Icon(
-                      Icons.electric_bolt_rounded,
+                      Icons.fitness_center_rounded,
                       color: VibrantColors.neonLime,
                       size: 18,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
-              Column(
+              const SizedBox(width: 10),
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text(
-                    'EAT OR ATE',
+                  Text(
+                    'Eat & Ate',
                     style: TextStyle(
                       color: VibrantColors.textPrimary,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.1,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.3,
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const LedStatusDiode(
-                        color: VibrantColors.neonLime,
-                        size: 5,
-                      ),
-                      const SizedBox(width: 5),
-                      const Text(
-                        'AI HEALTH OS',
-                        style: TextStyle(
-                          color: VibrantColors.neonLime,
-                          fontSize: 8.5,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: 0.7,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Fitness & Nutrition',
+                    style: TextStyle(
+                      color: VibrantColors.textSecondary,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ],
               ),
@@ -274,18 +271,17 @@ class _EatAteAppState extends State<EatAteApp> {
                   child: const Row(
                     children: [
                       Icon(
-                        Icons.play_circle_fill,
-                        size: 14,
+                        Icons.play_circle_fill_rounded,
+                        size: 15,
                         color: VibrantColors.neonLime,
                       ),
                       SizedBox(width: 4),
                       Text(
-                        'GLOW-UP',
+                        'Reel',
                         style: TextStyle(
                           color: VibrantColors.neonLime,
-                          fontSize: 9.5,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 0.8,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],

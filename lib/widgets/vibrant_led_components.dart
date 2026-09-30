@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../theme/vibrant_theme.dart';
 
-/// Pulsing glowing LED status diode with highlights and glow aura
-class LedStatusDiode extends StatefulWidget {
+/// Clean status indicator dot for metric and sync states
+class LedStatusDiode extends StatelessWidget {
   final Color color;
   final double size;
   final bool isPulsing;
@@ -12,77 +12,33 @@ class LedStatusDiode extends StatefulWidget {
     super.key,
     this.color = VibrantColors.neonLime,
     this.size = 8.0,
-    this.isPulsing = true,
+    this.isPulsing = false,
     this.label,
   });
 
   @override
-  State<LedStatusDiode> createState() => _LedStatusDiodeState();
-}
-
-class _LedStatusDiodeState extends State<LedStatusDiode>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _pulseCtrl;
-
-  @override
-  void initState() {
-    super.initState();
-    _pulseCtrl = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1200),
-    );
-    if (widget.isPulsing) {
-      _pulseCtrl.repeat(reverse: true);
-    } else {
-      _pulseCtrl.value = 1.0;
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant LedStatusDiode oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.isPulsing && !_pulseCtrl.isAnimating) {
-      _pulseCtrl.repeat(reverse: true);
-    } else if (!widget.isPulsing && _pulseCtrl.isAnimating) {
-      _pulseCtrl.stop();
-      _pulseCtrl.value = 1.0;
-    }
-  }
-
-  @override
-  void dispose() {
-    _pulseCtrl.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Widget diode = Container(
-      width: widget.size,
-      height: widget.size,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: widget.color,
-        border: Border.all(
-          color: widget.color.withValues(alpha: 0.35),
-          width: 1.0,
-        ),
+        color: color,
       ),
     );
 
-    if (widget.label != null) {
+    if (label != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           diode,
           const SizedBox(width: 8),
           Text(
-            widget.label!,
+            label!,
             style: TextStyle(
-              color: widget.color,
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.8,
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -92,8 +48,8 @@ class _LedStatusDiodeState extends State<LedStatusDiode>
   }
 }
 
-/// Uniquely shaped cyber button with chamfered corners, specular highlights,
-/// deep lowlight shadows, and an embedded glowing LED diode.
+/// Clean, tactile athletic button with smooth rounded corners,
+/// high contrast typography, and premium tap feel.
 class LedCyberButton extends StatefulWidget {
   final VoidCallback? onPressed;
   final Widget? icon;
@@ -111,10 +67,10 @@ class LedCyberButton extends StatefulWidget {
     required this.label,
     this.subtitle,
     this.icon,
-    this.gradientColors = const [VibrantColors.neonLime, VibrantColors.neonCyan],
+    this.gradientColors = const [VibrantColors.neonLime, Color(0xFF047857)],
     this.ledColor = VibrantColors.neonLime,
     this.chamfer = 14.0,
-    this.padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+    this.padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
     this.fullWidth = false,
   });
 
@@ -136,79 +92,78 @@ class _LedCyberButtonState extends State<LedCyberButton> {
       onTapUp: isDisabled ? null : (_) => setState(() => _isPressed = false),
       onTapCancel: isDisabled ? null : () => setState(() => _isPressed = false),
       child: AnimatedScale(
-        scale: _isPressed ? 0.96 : 1.0,
+        scale: _isPressed ? 0.97 : 1.0,
         duration: const Duration(milliseconds: 100),
-        child: SizedBox(
+        child: Container(
           width: widget.fullWidth ? double.infinity : null,
-          child: CustomPaint(
-            painter: _CyberButtonFramePainter(
-              chamfer: widget.chamfer,
-              isPressed: _isPressed,
-              gradientColors: isDisabled
-                  ? [Colors.grey.shade800, Colors.grey.shade900]
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: isDisabled
+                  ? [const Color(0xFF94A3B8), const Color(0xFF64748B)]
                   : widget.gradientColors,
-              ledColor: isDisabled ? Colors.grey : widget.ledColor,
             ),
-            child: ClipPath(
-              clipper: _CyberChamferClipper(widget.chamfer),
-              child: Container(
-                padding: widget.padding,
-                child: Row(
-                  mainAxisSize:
-                      widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: isDisabled
+                ? null
+                : [
+                    BoxShadow(
+                      color: widget.gradientColors.first.withValues(alpha: 0.25),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+          ),
+          padding: widget.padding,
+          child: Row(
+            mainAxisSize:
+                widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (widget.icon != null) ...[
+                IconTheme(
+                  data: const IconThemeData(
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                  child: widget.icon!,
+                ),
+                const SizedBox(width: 8),
+              ],
+              Flexible(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Embedded pulsing LED indicator
-                    LedStatusDiode(
-                      color: isDisabled ? Colors.grey : widget.ledColor,
-                      size: 7,
-                      isPulsing: !isDisabled,
+                    Text(
+                      widget.label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.2,
+                      ),
                     ),
-                    const SizedBox(width: 12),
-                    if (widget.icon != null) ...[
-                      IconTheme(
-                        data: const IconThemeData(
-                          color: Colors.white,
-                          size: 19,
+                    if (widget.subtitle != null) ...[
+                      const SizedBox(height: 2),
+                      Text(
+                        widget.subtitle!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
                         ),
-                        child: widget.icon!,
                       ),
-                      const SizedBox(width: 8),
                     ],
-                    Flexible(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.label.toUpperCase(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                          if (widget.subtitle != null)
-                            Text(
-                              widget.subtitle!,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -216,90 +171,7 @@ class _LedCyberButtonState extends State<LedCyberButton> {
   }
 }
 
-/// Custom path clipper that cuts top-right and bottom-left chamfers
-class _CyberChamferClipper extends CustomClipper<Path> {
-  final double chamfer;
-  _CyberChamferClipper(this.chamfer);
-
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.moveTo(0, chamfer);
-    path.lineTo(chamfer, 0);
-    path.lineTo(size.width, 0);
-    path.lineTo(size.width, size.height - chamfer);
-    path.lineTo(size.width - chamfer, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant _CyberChamferClipper oldClipper) =>
-      oldClipper.chamfer != chamfer;
-}
-
-/// Custom painter for cyber button frame, specular highlights, and clean shadow
-class _CyberButtonFramePainter extends CustomPainter {
-  final double chamfer;
-  final bool isPressed;
-  final List<Color> gradientColors;
-  final Color ledColor;
-
-  _CyberButtonFramePainter({
-    required this.chamfer,
-    required this.isPressed,
-    required this.gradientColors,
-    required this.ledColor,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rect = Offset.zero & size;
-    final path = Path()
-      ..moveTo(0, chamfer)
-      ..lineTo(chamfer, 0)
-      ..lineTo(size.width, 0)
-      ..lineTo(size.width, size.height - chamfer)
-      ..lineTo(size.width - chamfer, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-
-    // 1. Soft clean drop shadow (no neon blur)
-    if (!isPressed) {
-      final glowPaint = Paint()
-        ..color = const Color(0x1F0F172A)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
-      canvas.drawPath(path, glowPaint);
-    }
-
-    // 2. Button Body Gradient
-    final fillPaint = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: gradientColors,
-      ).createShader(rect);
-    canvas.drawPath(path, fillPaint);
-
-    // 3. Subtle top highlight
-    final highlightPaint = Paint()
-      ..color = Colors.white.withValues(alpha: isPressed ? 0.1 : 0.35)
-      ..strokeWidth = 1.2
-      ..style = PaintingStyle.stroke;
-    final highlightPath = Path()
-      ..moveTo(0, chamfer)
-      ..lineTo(chamfer, 0)
-      ..lineTo(size.width, 0);
-    canvas.drawPath(highlightPath, highlightPaint);
-  }
-
-  @override
-  bool shouldRepaint(covariant _CyberButtonFramePainter oldDelegate) =>
-      oldDelegate.isPressed != isPressed || oldDelegate.ledColor != ledColor;
-}
-
-/// Clean, modern light card with crisp slate borders and soft elevation
+/// Clean, modern athletic card with crisp slate borders and soft elevation
 class VibrantLedCard extends StatelessWidget {
   final Widget child;
   final String? title;
@@ -325,21 +197,21 @@ class VibrantLedCard extends StatelessWidget {
     Widget cardContent = Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: const Color(0xFFE2E8F0),
-          width: 1.2,
+          width: 1.0,
         ),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x0A0F172A),
-            blurRadius: 14,
-            offset: Offset(0, 4),
+            color: Color(0x080F172A),
+            blurRadius: 10,
+            offset: Offset(0, 3),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         child: Padding(
           padding: padding,
           child: Column(
@@ -352,27 +224,16 @@ class VibrantLedCard extends StatelessWidget {
                   children: [
                     if (title != null)
                       Expanded(
-                        child: Row(
-                          children: [
-                            LedStatusDiode(
-                              color: ledColor,
-                              size: 7,
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                title!.toUpperCase(),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  color: VibrantColors.textPrimary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w800,
-                                  letterSpacing: 1.1,
-                                ),
-                              ),
-                            ),
-                          ],
+                        child: Text(
+                          title!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: VibrantColors.textPrimary,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: -0.1,
+                          ),
                         ),
                       ),
                     if (trailing != null) ...[
@@ -393,7 +254,7 @@ class VibrantLedCard extends StatelessWidget {
     if (onTap != null) {
       return InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(16),
         child: cardContent,
       );
     }
@@ -401,7 +262,7 @@ class VibrantLedCard extends StatelessWidget {
   }
 }
 
-/// Clean Pill Badge with subtle tint
+/// Clean Pill Badge with subtle tint and crisp typography
 class LedPillBadge extends StatelessWidget {
   final String label;
   final Color color;
@@ -417,17 +278,15 @@ class LedPillBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: color.withValues(alpha: 0.25), width: 1),
+        color: color.withValues(alpha: 0.10),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withValues(alpha: 0.20), width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          LedStatusDiode(color: color, size: 5),
-          const SizedBox(width: 6),
           if (icon != null) ...[
             Icon(icon, size: 12, color: color),
             const SizedBox(width: 4),
@@ -437,8 +296,7 @@ class LedPillBadge extends StatelessWidget {
             style: TextStyle(
               color: color,
               fontSize: 11,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.6,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -446,4 +304,3 @@ class LedPillBadge extends StatelessWidget {
     );
   }
 }
-

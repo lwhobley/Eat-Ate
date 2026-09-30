@@ -36,7 +36,6 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
   @override
   void initState() {
     super.initState();
-    // Default to existing store impact if any
     _impact = widget.store.lastMealImpact;
   }
 
@@ -91,19 +90,11 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
     await widget.store.logComparedMeal(_impact!, imageBytes: _actualPhotoBytes);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: const Color(0xFF0F172A),
-          content: Row(
-            children: const [
-              Icon(Icons.bolt, color: VibrantColors.neonLime),
-              SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  'Meal locked in! Tomorrow\'s blueprint and avatar auto-adapted. We move!',
-                  style: TextStyle(color: VibrantColors.neonLime, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
+        const SnackBar(
+          backgroundColor: Color(0xFF0F172A),
+          content: Text(
+            'Meal saved. Daily targets and recommendations updated.',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       );
@@ -118,24 +109,23 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
       children: [
         // Input Form Section
         VibrantLedCard(
-          title: 'THE MEAL SHOWDOWN • BLUEPRINT VS REALITY',
+          title: 'Meal Comparison • Target vs Actual',
           ledColor: VibrantColors.neonCyan,
           accentColor: VibrantColors.neonCyan,
           trailing: const LedPillBadge(
-            label: 'AI CONSEQUENCE ENGINE',
-            color: VibrantColors.neonLime,
+            label: 'Impact Analysis',
+            color: VibrantColors.neonCyan,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Planned Meal Input
               const Text(
-                '1. THE BLUEPRINT (WHAT WAS PLANNED)',
+                '1. Planned Target Meal',
                 style: TextStyle(
-                  color: VibrantColors.neonCyan,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.0,
+                  color: VibrantColors.textPrimary,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 6),
@@ -160,12 +150,11 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
 
               // Actual Ingested Meal Input
               const Text(
-                '2. THE REALITY (WHAT YOU ACTUALLY ATE)',
+                '2. Actual Meal Eaten',
                 style: TextStyle(
-                  color: VibrantColors.neonMagenta,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 1.0,
+                  color: VibrantColors.textPrimary,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 6),
@@ -190,12 +179,12 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.camera_alt, color: VibrantColors.neonCyan, size: 20),
+                      icon: const Icon(Icons.camera_alt_rounded, color: Color(0xFF0284C7), size: 20),
                       onPressed: _pickPhoto,
                     ),
                     IconButton(
                       icon: Icon(
-                        _isListening ? Icons.mic_off : Icons.mic,
+                        _isListening ? Icons.mic_off_rounded : Icons.mic_rounded,
                         color: _isListening ? VibrantColors.neonMagenta : VibrantColors.neonLime,
                         size: 20,
                       ),
@@ -219,8 +208,8 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                     ),
                     const SizedBox(width: 8),
                     const Text(
-                      'Photo attached for AI vision parse',
-                      style: TextStyle(color: VibrantColors.neonCyan, fontSize: 11),
+                      'Photo attached for analysis',
+                      style: TextStyle(color: Color(0xFF0284C7), fontSize: 11),
                     ),
                   ],
                 ),
@@ -231,12 +220,11 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'AI PERSONA VIBE CHECK:',
+                    'Coaching Style:',
                     style: TextStyle(
                       color: VibrantColors.textSecondary,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.8,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   AnimatedBuilder(
@@ -252,15 +240,14 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
               LedCyberButton(
                 onPressed: _isAnalyzing ? null : _analyzeImpact,
                 label: _isAnalyzing
-                    ? 'Running AI Metabolic Breakdown…'
-                    : 'Run Showdown & Vibe Check (AI)',
-                subtitle: 'Evaluates macro deltas, avatar drift & adaptive rebalance',
-                icon: const Icon(Icons.auto_awesome),
+                    ? 'Analyzing Nutrition Impact…'
+                    : 'Compare Nutrition Impact',
+                subtitle: 'Evaluates calorie difference and suggests plan adjustments',
+                icon: const Icon(Icons.analytics_rounded),
                 gradientColors: const [
-                  VibrantColors.neonLime,
-                  VibrantColors.neonCyan,
+                  Color(0xFF0284C7),
+                  Color(0xFF0369A1),
                 ],
-                ledColor: VibrantColors.neonLime,
                 fullWidth: true,
               ),
             ],
@@ -285,7 +272,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
       children: [
         // 1. Head-to-Head Nutritional Comparison Card
         VibrantLedCard(
-          title: 'TALE OF THE TAPE • MACRO DELTAS',
+          title: 'Nutritional Comparison',
           ledColor: isSurplus ? VibrantColors.neonMagenta : VibrantColors.neonLime,
           accentColor: VibrantColors.neonCyan,
           child: Column(
@@ -305,12 +292,11 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
-                            'THE BLUEPRINT',
+                            'Target Meal',
                             style: TextStyle(
-                              color: VibrantColors.neonCyan,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 0.8,
+                              color: Color(0xFF0284C7),
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -321,7 +307,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                             style: const TextStyle(
                               color: VibrantColors.textPrimary,
                               fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -330,12 +316,12 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                             style: const TextStyle(
                               color: VibrantColors.textPrimary,
                               fontSize: 16,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                           Text(
                             '${impact.plannedNutrients.proteinG.round()}g Prot • ${impact.plannedNutrients.carbsG.round()}g Carb',
-                            style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 10),
+                            style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 10.5),
                           ),
                         ],
                       ),
@@ -359,12 +345,11 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'WHAT WAS EATEN',
+                            'Actual Meal',
                             style: TextStyle(
                               color: isSurplus ? VibrantColors.neonMagenta : VibrantColors.neonLime,
-                              fontSize: 10,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 0.8,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                           const SizedBox(height: 4),
@@ -375,7 +360,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                             style: const TextStyle(
                               color: VibrantColors.textPrimary,
                               fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                           const SizedBox(height: 8),
@@ -384,12 +369,12 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                             style: TextStyle(
                               color: isSurplus ? VibrantColors.neonMagenta : VibrantColors.neonLime,
                               fontSize: 16,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                           Text(
                             '${impact.actualNutrients.proteinG.round()}g Prot • ${impact.actualNutrients.carbsG.round()}g Carb',
-                            style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 10),
+                            style: const TextStyle(color: VibrantColors.textSecondary, fontSize: 10.5),
                           ),
                         ],
                       ),
@@ -404,12 +389,12 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDeltaBadge(
-                    label: 'CALORIE SHIFT',
+                    label: 'Calorie Delta',
                     value: '${impact.calorieDelta > 0 ? "+" : ""}${impact.calorieDelta} kcal',
                     color: isSurplus ? VibrantColors.neonMagenta : VibrantColors.neonLime,
                   ),
                   _buildDeltaBadge(
-                    label: 'PROTEIN DELTA',
+                    label: 'Protein Delta',
                     value: '${impact.proteinDelta > 0 ? "+" : ""}${impact.proteinDelta.round()}g',
                     color: isProtPositive ? VibrantColors.neonLime : VibrantColors.neonGold,
                   ),
@@ -422,7 +407,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
 
         // 2. AI Nutritional Background Intelligence Card
         VibrantLedCard(
-          title: 'AI METABOLIC BREAKDOWN',
+          title: 'Nutritional Summary & Coaching',
           ledColor: VibrantColors.neonCyan,
           accentColor: VibrantColors.neonCyan,
           child: Text(
@@ -438,7 +423,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
 
         // 3. Rewards & Gains
         VibrantLedCard(
-          title: 'REWARDS & METABOLIC GAINS (THE W\'S)',
+          title: 'Nutritional Upsides & Benefits',
           ledColor: VibrantColors.neonLime,
           accentColor: VibrantColors.neonLime,
           child: Column(
@@ -476,7 +461,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
 
         // 4. Consequences & Costs
         VibrantLedCard(
-          title: 'CONSEQUENCES & PHYSIOLOGICAL COSTS (THE L\'S)',
+          title: 'Trade-offs & Nutritional Deficits',
           ledColor: VibrantColors.neonMagenta,
           accentColor: VibrantColors.neonMagenta,
           child: Column(
@@ -488,7 +473,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Icon(
-                          Icons.warning_amber_rounded,
+                          Icons.info_outline_rounded,
                           color: VibrantColors.neonMagenta,
                           size: 16,
                         ),
@@ -512,47 +497,46 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
         ),
         const SizedBox(height: 14),
 
-        // 5. Plan Adaptation & Avatar Rebalance
+        // 5. Plan Adaptation & Recommendations
         VibrantLedCard(
-          title: 'AUTOMATIC REBALANCE • NO GUILT, WE MOVE',
+          title: 'Adaptive Recommendations',
           ledColor: VibrantColors.neonGold,
           accentColor: VibrantColors.neonGold,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildImpactRow(
-                icon: Icons.sync_problem_rounded,
-                title: 'Tomorrow\'s Blueprint Rebalance',
+                icon: Icons.calendar_today_rounded,
+                title: 'Tomorrow\'s Plan Adjustment',
                 body: impact.planAdaptation,
                 color: VibrantColors.neonGold,
               ),
               const SizedBox(height: 10),
               _buildImpactRow(
-                icon: Icons.accessibility_new_rounded,
-                title: 'Future Avatar Projection Drift',
+                icon: Icons.person_rounded,
+                title: 'Body Composition Impact',
                 body: impact.avatarProjectionImpact,
                 color: VibrantColors.neonMagenta,
               ),
               const SizedBox(height: 10),
               _buildImpactRow(
                 icon: Icons.directions_run_rounded,
-                title: 'Cardio / Steps Burn Offset',
+                title: 'Activity & Calorie Offset',
                 body: impact.exerciseOffset,
-                color: VibrantColors.neonCyan,
+                color: const Color(0xFF0284C7),
               ),
               const SizedBox(height: 16),
 
               // Button to commit this meal and apply rebalance
               LedCyberButton(
                 onPressed: _applyAndLog,
-                label: 'LOCK IN MEAL & AUTO-REBALANCE',
-                subtitle: 'Updates blueprint, avatar leanness & weekly macro budget',
-                icon: const Icon(Icons.bolt),
+                label: 'Save Meal & Apply Adjustments',
+                subtitle: 'Updates daily targets and weekly progression',
+                icon: const Icon(Icons.check_rounded),
                 gradientColors: const [
-                  VibrantColors.neonGold,
                   VibrantColors.neonLime,
+                  Color(0xFF047857),
                 ],
-                ledColor: VibrantColors.neonLime,
                 fullWidth: true,
               ),
             ],
@@ -570,9 +554,9 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: color.withValues(alpha: 0.08),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.25)),
+        border: Border.all(color: color.withValues(alpha: 0.2)),
       ),
       child: Column(
         children: [
@@ -581,7 +565,7 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
             style: TextStyle(
               color: color,
               fontSize: 16,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w800,
             ),
           ),
           const SizedBox(height: 2),
@@ -589,9 +573,8 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
             label,
             style: const TextStyle(
               color: VibrantColors.textSecondary,
-              fontSize: 9,
-              fontWeight: FontWeight.w700,
-              letterSpacing: 0.8,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
@@ -618,9 +601,8 @@ class _MealDecisionImpactViewState extends State<MealDecisionImpactView> {
                 title,
                 style: TextStyle(
                   color: color,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.5,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(height: 2),

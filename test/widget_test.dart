@@ -12,6 +12,6 @@ void main() {
       initialShowReel: false,
     ));
     await tester.pump(const Duration(milliseconds: 100));
-    expect(find.textContaining('TOMORROW'), findsWidgets);
+    expect(find.textContaining('Tomorrow'), findsWidgets);
   });
 }

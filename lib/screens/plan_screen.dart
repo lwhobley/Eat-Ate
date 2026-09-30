@@ -22,7 +22,7 @@ class PlanScreen extends StatelessWidget {
         final tier = store.subscriptionTier;
 
         return ListView(
-          padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
           children: [
             // Human-in-the-Loop Coach Accountability Card
             if (tier.hasCoachReview) ...[
@@ -43,11 +43,11 @@ class PlanScreen extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(14),
                     border: Border.all(
-                      color: VibrantColors.neonLime.withValues(alpha: 0.35),
+                      color: const Color(0xFFE2E8F0),
                     ),
                     boxShadow: const [
                       BoxShadow(
-                        color: Color(0x0A0F172A),
+                        color: Color(0x060F172A),
                         blurRadius: 8,
                         offset: Offset(0, 2),
                       ),
@@ -55,42 +55,45 @@ class PlanScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const Icon(Icons.lock_clock,
-                          color: VibrantColors.neonLime, size: 20),
+                      const Icon(Icons.star_rounded,
+                          color: VibrantColors.neonLime, size: 22),
                       const SizedBox(width: 10),
                       const Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'FREE TIER • PREVIEWING ADAPTIVE BLUEPRINT',
+                              'Free Plan • Previewing Personalized Targets',
                               style: TextStyle(
-                                color: VibrantColors.neonLime,
-                                fontSize: 10,
-                                fontWeight: FontWeight.w900,
+                                color: VibrantColors.textPrimary,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
+                            SizedBox(height: 2),
                             Text(
-                              'Upgrade to Pro Annual for unlimited logging & auto-drifting avatar.',
+                              'Upgrade to Pro for unlimited logging and adaptive coach reviews.',
                               style: TextStyle(
-                                  color: VibrantColors.textSecondary, fontSize: 11),
+                                color: VibrantColors.textSecondary,
+                                fontSize: 11,
+                              ),
                             ),
                           ],
                         ),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: VibrantColors.neonLime,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
-                          'UPGRADE',
+                          'Upgrade',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w900,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -102,11 +105,11 @@ class PlanScreen extends StatelessWidget {
 
             // 1. Tomorrow's Workout Card with Action Button
             VibrantLedCard(
-              title: 'TOMORROW\'S MISSION • ${p.programDay.toUpperCase()}',
+              title: 'Tomorrow\'s Workout • ${p.programDay}',
               ledColor: VibrantColors.neonLime,
               accentColor: VibrantColors.neonLime,
               trailing: LedPillBadge(
-                label: '$adherencePercent% LOCKED IN',
+                label: '$adherencePercent% Completed',
                 color: VibrantColors.neonLime,
               ),
               child: Column(
@@ -116,9 +119,9 @@ class PlanScreen extends StatelessWidget {
                     p.trainingTitle,
                     style: const TextStyle(
                       color: VibrantColors.textPrimary,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 0.3,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.3,
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -135,17 +138,17 @@ class PlanScreen extends StatelessWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
+                            horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
                           color: const Color(0xFFF1F5F9),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: const Color(0xFFE2E8F0)),
                         ),
                         child: Text(
-                          'Sessions: ${store.doneWorkouts} / ${store.plannedWorkouts} Crushed',
+                          'Completed: ${store.doneWorkouts} of ${store.plannedWorkouts} Sessions',
                           style: const TextStyle(
                             color: VibrantColors.textSecondary,
-                            fontSize: 11,
+                            fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -155,14 +158,13 @@ class PlanScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   LedCyberButton(
                     onPressed: store.completePlannedWorkout,
-                    label: 'Crush Workout',
-                    subtitle: 'Powers dynamic avatar & weekly rebalance',
+                    label: 'Mark Workout Complete',
+                    subtitle: 'Logs progress and updates weekly plan',
                     icon: const Icon(Icons.check_circle_outline),
                     gradientColors: const [
                       VibrantColors.neonLime,
-                      VibrantColors.neonCyan,
+                      Color(0xFF047857),
                     ],
-                    ledColor: VibrantColors.neonLime,
                     fullWidth: true,
                   ),
                 ],
@@ -170,13 +172,13 @@ class PlanScreen extends StatelessWidget {
             ),
             const SizedBox(height: 14),
 
-            // 2. Nutrition Target with Glowing Calorie Dial / Stats
+            // 2. Nutrition Target with Calorie & Protein breakdown
             VibrantLedCard(
-              title: 'DAILY MACRO BLUEPRINT',
+              title: 'Daily Nutrition Targets',
               ledColor: VibrantColors.neonCyan,
               accentColor: VibrantColors.neonCyan,
               trailing: const LedPillBadge(
-                label: 'CALORIE BUDGET',
+                label: 'Calorie Budget',
                 color: VibrantColors.neonCyan,
               ),
               child: Column(
@@ -188,16 +190,17 @@ class PlanScreen extends StatelessWidget {
                         child: _buildMacroMetric(
                           label: 'CALORIES',
                           target: '${p.kcalTarget} kcal',
-                          eaten: '${store.eatenKcal.round()} fueled',
+                          eaten: '${store.eatenKcal.round()} kcal logged',
                           color: VibrantColors.neonCyan,
                         ),
                       ),
                       Container(width: 1, height: 40, color: const Color(0xFFE2E8F0)),
+                      const SizedBox(width: 16),
                       Expanded(
                         child: _buildMacroMetric(
                           label: 'PROTEIN',
                           target: '${p.proteinTarget}g',
-                          eaten: '${store.eatenProtein.round()}g locked in',
+                          eaten: '${store.eatenProtein.round()}g logged',
                           color: VibrantColors.neonMagenta,
                         ),
                       ),
@@ -228,26 +231,24 @@ class PlanScreen extends StatelessWidget {
                             style: const TextStyle(
                               color: VibrantColors.textSecondary,
                               fontSize: 12,
-                              fontStyle: FontStyle.italic,
+                              height: 1.3,
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 14),
                   LedCyberButton(
                     onPressed: () => _openMealImpactSheet(context),
-                    label: 'Compare What You Ate vs Plan (Showdown)',
-                    subtitle: 'AI breaks down rewards, consequences & auto-rebalance',
+                    label: 'Compare Food vs Target',
+                    subtitle: 'See nutrition impact and adaptive adjustments',
                     icon: const Icon(Icons.compare_arrows_rounded),
                     gradientColors: const [
-                      VibrantColors.neonMagenta,
-                      VibrantColors.neonPurple,
+                      Color(0xFF0284C7),
+                      Color(0xFF0369A1),
                     ],
-                    ledColor: VibrantColors.neonMagenta,
-                    chamfer: 10,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                     fullWidth: true,
                   ),
                 ],
@@ -257,7 +258,7 @@ class PlanScreen extends StatelessWidget {
 
             // 3. Sleep & Recovery Target
             VibrantLedCard(
-              title: 'SLEEP PROTOCOL • ANTI-BURNOUT',
+              title: 'Sleep & Recovery Target',
               ledColor: VibrantColors.neonPurple,
               accentColor: VibrantColors.neonPurple,
               child: Column(
@@ -266,7 +267,7 @@ class PlanScreen extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(
-                        Icons.nights_stay_rounded,
+                        Icons.nights_stay_outlined,
                         color: VibrantColors.neonPurple,
                         size: 20,
                       ),
@@ -276,18 +277,18 @@ class PlanScreen extends StatelessWidget {
                         style: const TextStyle(
                           color: VibrantColors.textPrimary,
                           fontSize: 16,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Why: ${p.why}',
+                    'Rationale: ${p.why}',
                     style: const TextStyle(
                       color: VibrantColors.textSecondary,
                       fontSize: 13,
-                      height: 1.35,
+                      height: 1.4,
                     ),
                   ),
                 ],
@@ -295,9 +296,9 @@ class PlanScreen extends StatelessWidget {
             ),
             const SizedBox(height: 14),
 
-            // 4. Week Rebalance Schedule
+            // 4. Week Schedule & Adjustments
             VibrantLedCard(
-              title: 'WEEK REBALANCE • NO GUILT, WE MOVE',
+              title: 'Weekly Schedule & Adjustments',
               ledColor: VibrantColors.neonGold,
               accentColor: VibrantColors.neonGold,
               child: Column(
@@ -337,7 +338,7 @@ class PlanScreen extends StatelessWidget {
                                   ? VibrantColors.neonGold
                                   : VibrantColors.textSecondary,
                               fontSize: 11,
-                              fontWeight: FontWeight.w800,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
@@ -353,7 +354,7 @@ class PlanScreen extends StatelessWidget {
                                       ? VibrantColors.textPrimary
                                       : VibrantColors.textSecondary,
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Text(
@@ -392,26 +393,24 @@ class PlanScreen extends StatelessWidget {
           style: const TextStyle(
             color: Color(0xFF64748B),
             fontSize: 10,
-            fontWeight: FontWeight.w800,
-            letterSpacing: 1.0,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.5,
           ),
         ),
-        const SizedBox(height: 2),
+        const SizedBox(height: 3),
         Text(
           target,
           style: TextStyle(
             color: color,
             fontSize: 18,
-            fontWeight: FontWeight.w900,
-            shadows: [
-              Shadow(color: color.withValues(alpha: 0.5), blurRadius: 8),
-            ],
+            fontWeight: FontWeight.w800,
           ),
         ),
+        const SizedBox(height: 1),
         Text(
           eaten,
           style: const TextStyle(
-            color: Colors.white60,
+            color: VibrantColors.textSecondary,
             fontSize: 11,
           ),
         ),
@@ -423,9 +422,9 @@ class PlanScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: const Color(0xFF07080E),
+      backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (ctx) => DraggableScrollableSheet(
         initialChildSize: 0.88,
@@ -438,11 +437,11 @@ class PlanScreen extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                width: 40,
+                width: 36,
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: const Color(0xFFE2E8F0),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/vibrant_theme.dart';
 
@@ -16,107 +15,89 @@ class FloatingNeonDock extends StatelessWidget {
   Widget build(BuildContext context) {
     final items = [
       _DockItem(
-        icon: Icons.flash_on_rounded,
+        icon: Icons.calendar_today_outlined,
+        activeIcon: Icons.calendar_today_rounded,
         label: 'Plan',
         activeColor: VibrantColors.neonLime,
       ),
       _DockItem(
-        icon: Icons.camera_enhance_rounded,
-        label: 'Fuel',
+        icon: Icons.restaurant_outlined,
+        activeIcon: Icons.restaurant_rounded,
+        label: 'Log',
         activeColor: VibrantColors.neonCyan,
       ),
       _DockItem(
-        icon: Icons.accessibility_new_rounded,
-        label: 'Physique',
+        icon: Icons.person_outline_rounded,
+        activeIcon: Icons.person_rounded,
+        label: 'Body',
         activeColor: VibrantColors.neonMagenta,
       ),
       _DockItem(
-        icon: Icons.battery_charging_full_rounded,
+        icon: Icons.favorite_border_rounded,
+        activeIcon: Icons.favorite_rounded,
         label: 'Recovery',
         activeColor: VibrantColors.neonGold,
       ),
     ];
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 18, right: 18, bottom: 20),
-      child: Container(
-        height: 72,
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.96),
-          borderRadius: BorderRadius.circular(36),
-          border: Border.all(
-            color: const Color(0xFFE2E8F0),
-            width: 1.2,
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          top: BorderSide(
+            color: Color(0xFFE2E8F0),
+            width: 1.0,
           ),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x140F172A),
-              blurRadius: 24,
-              offset: Offset(0, 6),
-            ),
-          ],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(36),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(items.length, (idx) {
-                final item = items[idx];
-                final isSelected = selectedIndex == idx;
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x080F172A),
+            blurRadius: 10,
+            offset: Offset(0, -3),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: SizedBox(
+          height: 62,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(items.length, (idx) {
+              final item = items[idx];
+              final isSelected = selectedIndex == idx;
 
-                return GestureDetector(
+              return Expanded(
+                child: InkWell(
                   onTap: () => onDestinationSelected(idx),
-                  behavior: HitTestBehavior.opaque,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    curve: Curves.easeOutCubic,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? item.activeColor.withValues(alpha: 0.12)
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(24),
-                      border: Border.all(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isSelected ? item.activeIcon : item.icon,
+                        size: 24,
                         color: isSelected
-                            ? item.activeColor.withValues(alpha: 0.25)
-                            : Colors.transparent,
+                            ? VibrantColors.textPrimary
+                            : const Color(0xFF94A3B8),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          item.icon,
-                          size: 22,
+                      const SizedBox(height: 4),
+                      Text(
+                        item.label,
+                        style: TextStyle(
                           color: isSelected
-                              ? item.activeColor
-                              : const Color(0xFF64748B),
+                              ? VibrantColors.textPrimary
+                              : const Color(0xFF94A3B8),
+                          fontSize: 11,
+                          fontWeight: isSelected
+                              ? FontWeight.w700
+                              : FontWeight.w500,
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          item.label.toUpperCase(),
-                          style: TextStyle(
-                            color: isSelected
-                                ? item.activeColor
-                                : const Color(0xFF64748B),
-                            fontSize: 10,
-                            fontWeight: isSelected
-                                ? FontWeight.w800
-                                : FontWeight.w600,
-                            letterSpacing: 0.8,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                );
-              }),
-            ),
+                ),
+              );
+            }),
           ),
         ),
       ),
@@ -126,11 +107,13 @@ class FloatingNeonDock extends StatelessWidget {
 
 class _DockItem {
   final IconData icon;
+  final IconData activeIcon;
   final String label;
   final Color activeColor;
 
   _DockItem({
     required this.icon,
+    required this.activeIcon,
     required this.label,
     required this.activeColor,
   });
