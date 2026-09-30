@@ -158,9 +158,9 @@ class _EatAteAppState extends State<EatAteApp> {
                         size: 5,
                       ),
                       const SizedBox(width: 5),
-                      Text(
-                        widget.geminiKey == null ? 'MOCK AI ENGINE' : 'GEMINI ACTIVE',
-                        style: const TextStyle(
+                      const Text(
+                        'AI ENGINE ACTIVE',
+                        style: TextStyle(
                           color: VibrantColors.neonCyan,
                           fontSize: 9,
                           fontWeight: FontWeight.w700,

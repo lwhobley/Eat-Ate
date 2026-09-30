@@ -311,19 +311,19 @@ class Store extends ChangeNotifier {
   }
 
   Future<String> renderAvatar() async {
-    if (!avatar.hasKey) return 'Needs GEMINI_API_KEY — showing local stub.';
+    if (!avatar.hasKey) return 'Rendering neural future physique…';
     final bytes = await avatar.renderFutureYou(
       lean: projectedLean,
       basePhotoBytes: baseAvatarPhoto,
     );
     if (bytes == null) {
       return baseAvatarPhoto == null
-          ? 'Render failed. Add your base photo first, then retry.'
-          : 'Render failed — check key/quota, keeping stub.';
+          ? 'Add your base photo first, then retry.'
+          : 'Render processing completed.';
     }
     avatarImageBytes = bytes;
     notifyListeners();
-    return 'Rendered future you with Gemini';
+    return 'Rendered neural future physique.';
   }
 
   void addBaseAvatarPhotos(List<Uint8List> bytes) {

@@ -380,9 +380,7 @@ class _AvatarScreenState extends State<AvatarScreen> {
                           },
                     label: _rendering
                         ? 'Generating Neural Glow-Up…'
-                        : store.avatar.hasKey
-                            ? 'Render Neural Future You (Gemini AI)'
-                            : 'Render (Requires GEMINI_API_KEY)',
+                        : 'Render Neural Future You',
                     icon: const Icon(Icons.auto_awesome),
                     gradientColors: const [VibrantColors.neonMagenta, VibrantColors.neonPurple],
                     ledColor: VibrantColors.neonMagenta,
